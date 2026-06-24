@@ -1,7 +1,7 @@
 -- Akshar Graphics Database Schema
 
-CREATE DATABASE IF NOT EXISTS akshar_graphics;
-USE akshar_graphics;
+-- CREATE DATABASE IF NOT EXISTS akshar_graphics;
+-- USE akshar_graphics;
 
 -- 1. Users Table (Admin Auth)
 CREATE TABLE IF NOT EXISTS users (
