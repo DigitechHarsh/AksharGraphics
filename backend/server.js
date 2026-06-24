@@ -101,6 +101,17 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Serve React Frontend Static Files
+const publicPath = path.join(__dirname, 'public');
+if (fs.existsSync(publicPath)) {
+  app.use(express.static(publicPath));
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads') && !req.path.startsWith('/assets')) {
+      res.sendFile(path.resolve(publicPath, 'index.html'));
+    }
+  });
+}
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`Akshar Graphics Server running on port ${PORT}`);
