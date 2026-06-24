@@ -193,6 +193,83 @@ if (mysql && process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME) 
     });
     useMySQL = true;
     console.log('MySQL Connection Pool configured successfully.');
+
+    // Auto-seed default data in MySQL if tables are empty
+    (async () => {
+      try {
+        // 1. Seed Users
+        const [userCountRows] = await pool.query('SELECT COUNT(*) as count FROM users');
+        if (userCountRows[0].count === 0) {
+          const salt = bcrypt.genSaltSync(10);
+          const hashedPassword = bcrypt.hashSync('admin123', salt);
+          await pool.query('INSERT INTO users (email, password, role) VALUES (?, ?, ?)', [
+            'admin@akshargraphics.com',
+            hashedPassword,
+            'admin'
+          ]);
+          console.log('Seeded default admin user in MySQL.');
+        }
+
+        // 2. Seed Hero Slides
+        const [slideCountRows] = await pool.query('SELECT COUNT(*) as count FROM hero_slides');
+        if (slideCountRows[0].count === 0) {
+          const defaultSlides = [
+            ["Printing Services", "Flyer Design, Poster Design, Brochures, Banner Printing, Roll-Up Standees", "/assets/slide_printing.jpg", "Get Quote", "/contact", 1],
+            ["Branding & Creative Design", "Logo Design, Letterheads, Business Stationery, Corporate Identity", "/assets/slide_branding.jpg", "Explore Services", "/services", 2],
+            ["Premium Wedding Printing", "Wedding Cards, Personalized Invitations & Premium Stationery", "/assets/slide_wedding.jpg", "Inquire Now", "/contact", 3]
+          ];
+          for (const s of defaultSlides) {
+            await pool.query('INSERT INTO hero_slides (title, subtitle, image_url, cta_text, cta_link, `order`) VALUES (?, ?, ?, ?, ?, ?)', s);
+          }
+          console.log('Seeded default hero slides in MySQL.');
+        }
+
+        // 3. Seed Services
+        const [serviceCountRows] = await pool.query('SELECT COUNT(*) as count FROM services');
+        if (serviceCountRows[0].count === 0) {
+          const defaultServices = [
+            ["Graphic Design", "Creative Logo Design", "Elevate your brand with custom logo designs crafted by our experienced branding artists. We create memorable corporate identities.", JSON.stringify(["Unique concepts tailored to your brand", "Vector source files provided", "Multiple revisions", "Brand guidelines included"]), "/assets/service_logo.jpg"],
+            ["Printing Solutions", "High-Quality Flyers & Banners", "Print marketing assets that demand attention. Crisp colors, premium cardstocks, and state-of-the-art offset printing.", JSON.stringify(["Vibrant high-resolution printing", "Various paper thickness options", "Express next-day delivery", "Bulk discounts available"]), "/assets/service_printing.jpg"],
+            ["Wedding Printing", "Premium Wedding Cards", "Handcrafted, foil-stamped, and laser-cut wedding invitation designs that make a stunning first impression for your special day.", JSON.stringify(["Gold and metallic foil stamping", "Custom envelope matching", "Handcrafted textured paper", "Digital matching e-cards"]), "/assets/service_wedding.jpg"]
+          ];
+          for (const s of defaultServices) {
+            await pool.query('INSERT INTO services (category, name, description, benefits, image_url) VALUES (?, ?, ?, ?, ?)', s);
+          }
+          console.log('Seeded default services in MySQL.');
+        }
+
+        // 4. Seed Portfolio
+        const [portfolioCountRows] = await pool.query('SELECT COUNT(*) as count FROM portfolio');
+        if (portfolioCountRows[0].count === 0) {
+          const defaultPortfolio = [
+            ["Wedding Cards", "Royal Crimson Foil Card", "Exquisite wedding card with heavy gold embossing and crimson velvet finish.", "/assets/portfolio_wedding.jpg", 1],
+            ["Business Branding", "Premium Corporate Stationery", "Letterhead, envelope, and card designs for corporate clients.", "/assets/portfolio_branding.jpg", 0],
+            ["Brochures", "Trifold Real Estate Catalog", "High-gloss marketing trifold brochure highlighting luxury villas.", "/assets/portfolio_brochure.jpg", 0]
+          ];
+          for (const p of defaultPortfolio) {
+            await pool.query('INSERT INTO portfolio (category, title, description, image_url, is_international) VALUES (?, ?, ?, ?, ?)', p);
+          }
+          console.log('Seeded default portfolio in MySQL.');
+        }
+
+        // 5. Seed Testimonials
+        const [testimonialCountRows] = await pool.query('SELECT COUNT(*) as count FROM testimonials');
+        if (testimonialCountRows[0].count === 0) {
+          const defaultTestimonials = [
+            ["Rajesh Patel", "Akshar Graphics has been printing our business cards and banners for over 5 years. Their quality is top-notch and delivery is always on time!", "/assets/client1.jpg"],
+            ["Sneha Mehta", "We ordered our wedding cards from Chandreshbhai. Every card was beautifully crafted. Our guests loved them. Highly recommended!", "/assets/client2.jpg"]
+          ];
+          for (const t of defaultTestimonials) {
+            await pool.query('INSERT INTO testimonials (client_name, review, image_url) VALUES (?, ?, ?)', t);
+          }
+          console.log('Seeded default testimonials in MySQL.');
+        }
+
+      } catch (seedErr) {
+        console.warn('Failed to auto-seed MySQL database:', seedErr.message);
+      }
+    })();
+
   } catch (err) {
     console.warn('Failed to configure MySQL pool. Falling back to JSON database.', err.message);
     useMySQL = false;
