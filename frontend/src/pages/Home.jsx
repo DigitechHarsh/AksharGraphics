@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiArrowRight, HiChevronLeft, HiChevronRight, HiCheckCircle, HiCalendar, HiLightBulb, HiSparkles, HiShieldCheck, HiCurrencyRupee } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
+import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 function TiltCard({ children, className = '' }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -54,7 +55,7 @@ export default function Home() {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/hero');
+        const res = await axios.get(`${API_BASE_URL}/hero`);
         if (res.data.length > 0) {
           setHeroSlides(res.data);
         } else {
@@ -77,7 +78,7 @@ export default function Home() {
     // Fetch Services preview
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/services');
+        const res = await axios.get(`${API_BASE_URL}/services`);
         setServices(res.data.slice(0, 3));
       } catch (err) {
         setServices([
@@ -91,7 +92,7 @@ export default function Home() {
     // Fetch Portfolio
     const fetchPortfolio = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/portfolio');
+        const res = await axios.get(`${API_BASE_URL}/portfolio`);
         if (res.data.length > 0) {
           setPortfolioItems(res.data);
         } else {
@@ -113,7 +114,7 @@ export default function Home() {
     // Fetch Testimonials
     const fetchTestimonials = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/testimonials');
+        const res = await axios.get(`${API_BASE_URL}/testimonials`);
         if (res.data.length > 0) {
           setTestimonials(res.data);
         } else {
@@ -288,7 +289,7 @@ export default function Home() {
 
                     {/* Fallback color block or image */}
                     <img
-                      src={slide.image_url.startsWith('/') ? `http://localhost:5000${slide.image_url}` : slide.image_url}
+                      src={slide.image_url.startsWith('/') ? `${API_STATIC_BASE}${slide.image_url}` : slide.image_url}
                       alt={slide.title}
                       onError={(e) => {
                         e.target.onerror = null;
@@ -661,7 +662,7 @@ export default function Home() {
               >
                 <div className="h-[220px] overflow-hidden relative">
                   <img
-                    src={svc.image_url.startsWith('/') ? `http://localhost:5000${svc.image_url}` : svc.image_url}
+                    src={svc.image_url.startsWith('/') ? `${API_STATIC_BASE}${svc.image_url}` : svc.image_url}
                     alt={svc.name}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -824,7 +825,7 @@ export default function Home() {
                   className="group relative rounded-2xl overflow-hidden shadow-2xl h-[280px] cursor-pointer"
                 >
                   <img
-                    src={item.image_url.startsWith('/') ? `http://localhost:5000${item.image_url}` : item.image_url}
+                    src={item.image_url.startsWith('/') ? `${API_STATIC_BASE}${item.image_url}` : item.image_url}
                     alt={item.title}
                     onError={(e) => {
                       e.target.onerror = null;

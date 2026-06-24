@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiMail, HiPhone, HiLocationMarker, HiCheckCircle } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
+import { API_BASE_URL } from '../config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ export default function Contact() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/services');
+        const res = await axios.get(`${API_BASE_URL}/services`);
         if (res.data.length > 0) {
           // Extract names
           setServicesList(res.data.map(s => s.name));
@@ -68,7 +69,7 @@ export default function Contact() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/inquiries', formData);
+      const res = await axios.post(`${API_BASE_URL}/inquiries`, formData);
       if (res.data.success) {
         setIsSubmitted(true);
         setFormData({

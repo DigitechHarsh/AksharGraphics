@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiCheckCircle, HiMail, HiPhone as PhoneIcon, HiX as CloseIcon } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
+import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 function TiltCard({ children, className = '' }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -57,7 +58,7 @@ export default function Services() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/services');
+        const res = await axios.get(`${API_BASE_URL}/services`);
         if (res.data.length > 0) {
           setServices(res.data);
         } else {
@@ -157,7 +158,7 @@ export default function Services() {
         message
       };
 
-      const res = await axios.post('http://localhost:5000/api/inquiries', payload);
+      const res = await axios.post(`${API_BASE_URL}/inquiries`, payload);
       if (res.data.success) {
         setIsInquirySubmitted(true);
         setFormData({ name: '', phone: '', email: '', message: '' });
@@ -226,7 +227,7 @@ export default function Services() {
               <TiltCard className="w-full lg:w-1/2 rainbow-glow-wrapper rounded-[2rem] h-[350px] md:h-[450px]">
                 <div className="w-full h-full rounded-[1.9rem] overflow-hidden shadow-2xl relative bg-brand-charcoal group">
                   <img
-                    src={svc.image_url.startsWith('/') ? `http://localhost:5000${svc.image_url}` : svc.image_url}
+                    src={svc.image_url.startsWith('/') ? `${API_STATIC_BASE}${svc.image_url}` : svc.image_url}
                     alt={svc.name}
                     onError={(e) => {
                       e.target.onerror = null;

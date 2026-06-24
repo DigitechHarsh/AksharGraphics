@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiCheckCircle, HiArrowRight, HiX as CloseIcon, HiMail, HiOutlineGlobeAlt, HiOutlineFolderOpen } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
+import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 function TiltCard({ children, className = '' }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -58,7 +59,7 @@ export default function Works() {
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/portfolio');
+        const res = await axios.get(`${API_BASE_URL}/portfolio`);
         setPortfolio(res.data);
       } catch (err) {
         setPortfolio(getDefaultPortfolio());
@@ -159,7 +160,7 @@ export default function Works() {
         message
       };
 
-      const res = await axios.post('http://localhost:5000/api/inquiries', payload);
+      const res = await axios.post(`${API_BASE_URL}/inquiries`, payload);
       if (res.data.success) {
         setIsInquirySubmitted(true);
         setFormData({ name: '', phone: '', email: '', message: '' });
@@ -271,7 +272,7 @@ export default function Works() {
                   <div className="bg-white rounded-[1.4rem] overflow-hidden shadow-lg flex flex-col justify-between h-full group">
                     <div className="relative h-[250px] overflow-hidden">
                       <img
-                        src={item.image_url.startsWith('/') ? `http://localhost:5000${item.image_url}` : item.image_url}
+                        src={item.image_url.startsWith('/') ? `${API_STATIC_BASE}${item.image_url}` : item.image_url}
                         alt={item.title}
                         onError={(e) => {
                           e.target.onerror = null;

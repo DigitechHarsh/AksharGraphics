@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
 import axios from 'axios';
+import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,9 +28,9 @@ export default function Header() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/settings');
+        const res = await axios.get(`${API_BASE_URL}/settings`);
         if (res.data && res.data.logo_url) {
-          setLogoUrl(`http://localhost:5000${res.data.logo_url}`);
+          setLogoUrl(`${API_STATIC_BASE}${res.data.logo_url}`);
         }
       } catch (err) {
         // Fallback to local public path if api fails

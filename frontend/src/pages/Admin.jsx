@@ -3,7 +3,7 @@ import axios from 'axios';
 import { HiLockClosed, HiMail, HiOutlineClipboardList, HiPhotograph, HiSpeakerphone, HiCog, HiLogout, HiPlus, HiTrash, HiCheck, HiAcademicCap, HiViewGrid, HiBriefcase, HiMenu, HiChevronRight } from 'react-icons/hi';
 import SEO from '../components/SEO';
 
-const API_BASE = 'http://localhost:5000/api';
+import { API_BASE_URL as API_BASE } from '../config';
 
 export default function Admin() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');

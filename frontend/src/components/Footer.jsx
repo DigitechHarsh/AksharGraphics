@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { HiMail, HiPhone, HiMap } from 'react-icons/hi';
 import axios from 'axios';
+import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 export default function Footer() {
   const [settings, setSettings] = useState({
@@ -16,7 +17,7 @@ export default function Footer() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/settings');
+        const res = await axios.get(`${API_BASE_URL}/settings`);
         if (res.data) {
           setSettings(res.data);
         }
@@ -35,7 +36,7 @@ export default function Footer() {
         <div className="space-y-6">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src={settings.logo_url ? (settings.logo_url.startsWith('/') ? `http://localhost:5000${settings.logo_url}` : settings.logo_url) : '/assets/logo.png'}
+              src={settings.logo_url ? (settings.logo_url.startsWith('/') ? `${API_STATIC_BASE}${settings.logo_url}` : settings.logo_url) : '/assets/logo.png'}
               alt="Akshar Graphics Logo"
               onError={(e) => {
                 e.target.style.display = 'none';
