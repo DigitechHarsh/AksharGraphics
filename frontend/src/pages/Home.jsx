@@ -212,7 +212,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex flex-col md:flex-row items-center justify-between py-10 px-6 max-w-7xl mx-auto gap-8 overflow-hidden rounded-[2rem] my-4 border border-brand-red/5">
+      <section className="relative min-h-[60vh] flex flex-col md:flex-row items-center justify-between py-8 px-6 max-w-7xl mx-auto gap-6 overflow-hidden rounded-[2rem] my-4 border border-brand-red/5">
         {/* Rainbow RGB flowing waves background */}
         <div className="rainbow-wave-bg">
           <div className="wave-blob-1"></div>

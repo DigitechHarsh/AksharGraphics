@@ -236,51 +236,50 @@ body {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.12; /* Kept very soft for excellent text readability */
+  filter: blur(65px);
+  opacity: 0.28;
   mix-blend-mode: multiply;
   pointer-events: none;
-  transition: all 1s ease-in-out;
 }
 
 /* Red-pink flowing blob */
 .rainbow-wave-bg::before {
-  top: -15%;
-  left: -15%;
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(circle, #D11414 0%, transparent 80%);
-  animation: wave-move-1 25s infinite alternate ease-in-out;
+  top: -20%;
+  left: -10%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, #D11414 0%, #ec4899 40%, transparent 75%);
+  animation: wave-move-1 20s infinite alternate ease-in-out, rgb-color-cycle-1 14s linear infinite;
 }
 
 /* Yellow-orange flowing blob */
 .rainbow-wave-bg::after {
-  bottom: -15%;
-  right: -15%;
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(circle, #EAB308 0%, transparent 80%);
-  animation: wave-move-2 30s infinite alternate ease-in-out;
+  bottom: -20%;
+  right: -10%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, #EAB308 0%, #f59e0b 40%, transparent 75%);
+  animation: wave-move-2 22s infinite alternate ease-in-out, rgb-color-cycle-2 16s linear infinite;
 }
 
-/* Green flowing blob */
+/* Green-teal flowing blob */
 .rainbow-wave-bg .wave-blob-1 {
-  top: 20%;
-  right: 5%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(circle, #10B981 0%, transparent 80%);
-  animation: wave-move-3 28s infinite alternate ease-in-out;
+  top: 10%;
+  right: -5%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(circle, #10B981 0%, #06b6d4 40%, transparent 75%);
+  animation: wave-move-3 18s infinite alternate ease-in-out, rgb-color-cycle-3 12s linear infinite;
 }
 
 /* Blue-purple flowing blob */
 .rainbow-wave-bg .wave-blob-2 {
-  bottom: 10%;
-  left: 10%;
-  width: 65%;
-  height: 65%;
-  background: radial-gradient(circle, #3B82F6 0%, transparent 80%);
-  animation: wave-move-4 24s infinite alternate ease-in-out;
+  bottom: 5%;
+  left: 5%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #3B82F6 0%, #8B5CF6 40%, transparent 75%);
+  animation: wave-move-4 24s infinite alternate ease-in-out, rgb-color-cycle-4 15s linear infinite;
 }
 
 @keyframes wave-move-1 {
