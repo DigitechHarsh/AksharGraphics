@@ -215,5 +215,97 @@ body {
   animation: spin-rainbow 2.5s linear infinite;
 }
 
+/* Rainbow RGB Flowing Waves Background Animation */
+.rainbow-wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  background: #FCFAF6;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.rainbow-wave-bg::before,
+.rainbow-wave-bg::after,
+.rainbow-wave-bg .wave-blob-1,
+.rainbow-wave-bg .wave-blob-2 {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.12; /* Kept very soft for excellent text readability */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transition: all 1s ease-in-out;
+}
+
+/* Red-pink flowing blob */
+.rainbow-wave-bg::before {
+  top: -15%;
+  left: -15%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #D11414 0%, transparent 80%);
+  animation: wave-move-1 25s infinite alternate ease-in-out;
+}
+
+/* Yellow-orange flowing blob */
+.rainbow-wave-bg::after {
+  bottom: -15%;
+  right: -15%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #EAB308 0%, transparent 80%);
+  animation: wave-move-2 30s infinite alternate ease-in-out;
+}
+
+/* Green flowing blob */
+.rainbow-wave-bg .wave-blob-1 {
+  top: 20%;
+  right: 5%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, #10B981 0%, transparent 80%);
+  animation: wave-move-3 28s infinite alternate ease-in-out;
+}
+
+/* Blue-purple flowing blob */
+.rainbow-wave-bg .wave-blob-2 {
+  bottom: 10%;
+  left: 10%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(circle, #3B82F6 0%, transparent 80%);
+  animation: wave-move-4 24s infinite alternate ease-in-out;
+}
+
+@keyframes wave-move-1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(10%, 15%) scale(1.15) rotate(90deg); }
+  100% { transform: translate(-10%, -5%) scale(0.9) rotate(180deg); }
+}
+
+@keyframes wave-move-2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-15%, -10%) scale(1.2) rotate(-90deg); }
+  100% { transform: translate(5%, 15%) scale(0.95) rotate(-180deg); }
+}
+
+@keyframes wave-move-3 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-10%, 15%) scale(0.9) rotate(60deg); }
+  100% { transform: translate(15%, -10%) scale(1.15) rotate(120deg); }
+}
+
+@keyframes wave-move-4 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(15%, -15%) scale(1.25) rotate(-60deg); }
+  100% { transform: translate(-15%, 10%) scale(0.95) rotate(-120deg); }
+}
+
 
 

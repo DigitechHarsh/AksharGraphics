@@ -212,7 +212,13 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex flex-col md:flex-row items-center justify-between py-10 px-6 max-w-7xl mx-auto gap-8 overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col md:flex-row items-center justify-between py-10 px-6 max-w-7xl mx-auto gap-8 overflow-hidden rounded-[2rem] my-4 border border-brand-red/5">
+        {/* Rainbow RGB flowing waves background */}
+        <div className="rainbow-wave-bg">
+          <div className="wave-blob-1"></div>
+          <div className="wave-blob-2"></div>
+        </div>
+
         {/* Left Side: Brand Core */}
         <div className="md:w-1/2 flex flex-col justify-center space-y-6 text-left z-10">
           {/* Pulsing Pill Badge */}
@@ -629,9 +635,16 @@ export default function Home() {
       </section>
 
       {/* Services Preview Section */}
-      <section className="py-12 px-6 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row items-end justify-between mb-8 gap-4">
+      <section className="relative py-12 px-8 max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] my-8 border border-brand-red/5">
+        {/* Rainbow RGB flowing waves background */}
+        <div className="rainbow-wave-bg">
+          <div className="wave-blob-1"></div>
+          <div className="wave-blob-2"></div>
+        </div>
+
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row items-end justify-between mb-8 gap-4">
           <div className="space-y-4 max-w-xl text-left">
             <span className="text-brand-red font-poppins font-bold text-xs uppercase tracking-widest">
               Our Services
@@ -695,6 +708,7 @@ export default function Home() {
             </TiltCard>
           ))}
         </div>
+      </div>
       </section>
 
       {/* International Clients Section */}

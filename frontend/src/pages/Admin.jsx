@@ -252,8 +252,8 @@ export default function Admin() {
           
           {/* Logo Mark */}
           <div className="text-center space-y-2">
-            <div className="w-14 h-14 bg-brand-red rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-brand-red/20">
-              <span className="font-poppins font-extrabold text-2xl text-brand-cream">AG</span>
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto shadow-lg border border-brand-red/10 overflow-hidden">
+              <img src="/assets/logo.png" alt="Akshar Graphics Logo" className="w-full h-full object-contain p-2" />
             </div>
             <h2 className="font-poppins font-extrabold text-2xl text-brand-charcoal mt-4">
               Akshar Graphics Admin
@@ -332,9 +332,12 @@ export default function Admin() {
           {/* Logo Brand Header */}
           <div className="px-6 flex items-center justify-between">
             {sidebarOpen && (
-              <span className="font-poppins font-extrabold text-lg text-white tracking-widest uppercase">
-                Console <span className="text-brand-red">AG</span>
-              </span>
+              <div className="flex items-center space-x-2">
+                <img src="/assets/logo.png" alt="Akshar Graphics Logo" className="h-8 w-8 object-contain bg-white rounded-lg p-0.5" />
+                <span className="font-poppins font-extrabold text-base text-white tracking-widest uppercase">
+                  Console
+                </span>
+              </div>
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
