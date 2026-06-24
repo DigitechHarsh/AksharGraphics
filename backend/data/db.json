@@ -1,0 +1,131 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@akshargraphics.com",
+      "password": "$2a$10$45hmS34j7Kl1zhfnCxap6OSh89TrtQtXjBUkXp3KiN/8KUm8zNPva",
+      "role": "admin",
+      "created_at": "2026-06-24T13:15:36.267Z"
+    }
+  ],
+  "hero_slides": [
+    {
+      "id": 1,
+      "title": "Printing Services",
+      "subtitle": "Flyer Design, Poster Design, Brochures, Banner Printing, Roll-Up Standees",
+      "image_url": "/assets/slide_printing.jpg",
+      "cta_text": "Get Quote",
+      "cta_link": "/contact",
+      "order": 1,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 2,
+      "title": "Branding & Creative Design",
+      "subtitle": "Logo Design, Letterheads, Business Stationery, Corporate Identity",
+      "image_url": "/assets/slide_branding.jpg",
+      "cta_text": "Explore Services",
+      "cta_link": "/services",
+      "order": 2,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 3,
+      "title": "Premium Wedding Printing",
+      "subtitle": "Wedding Cards, Personalized Invitations & Premium Stationery",
+      "image_url": "/assets/slide_wedding.jpg",
+      "cta_text": "Inquire Now",
+      "cta_link": "/contact",
+      "order": 3,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "category": "Graphic Design",
+      "name": "Creative Logo Design",
+      "description": "Elevate your brand with custom logo designs crafted by our experienced branding artists. We create memorable corporate identities.",
+      "benefits": "[\"Unique concepts tailored to your brand\",\"Vector source files provided\",\"Multiple revisions\",\"Brand guidelines included\"]",
+      "image_url": "/assets/service_logo.jpg",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 2,
+      "category": "Printing Solutions",
+      "name": "High-Quality Flyers & Banners",
+      "description": "Print marketing assets that demand attention. Crisp colors, premium cardstocks, and state-of-the-art offset printing.",
+      "benefits": "[\"Vibrant high-resolution printing\",\"Various paper thickness options\",\"Express next-day delivery\",\"Bulk discounts available\"]",
+      "image_url": "/assets/service_printing.jpg",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 3,
+      "category": "Wedding Printing",
+      "name": "Premium Wedding Cards",
+      "description": "Handcrafted, foil-stamped, and laser-cut wedding invitation designs that make a stunning first impression for your special day.",
+      "benefits": "[\"Gold and metallic foil stamping\",\"Custom envelope matching\",\"Handcrafted textured paper\",\"Digital matching e-cards\"]",
+      "image_url": "/assets/service_wedding.jpg",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 1,
+      "category": "Wedding Cards",
+      "title": "Royal Crimson Foil Card",
+      "description": "Exquisite wedding card with heavy gold embossing and crimson velvet finish.",
+      "image_url": "/assets/portfolio_wedding.jpg",
+      "is_international": 1,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 2,
+      "category": "Business Branding",
+      "title": "Premium Corporate Stationery",
+      "description": "Letterhead, envelope, and card designs for corporate clients.",
+      "image_url": "/assets/portfolio_branding.jpg",
+      "is_international": 0,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 3,
+      "category": "Brochures",
+      "title": "Trifold Real Estate Catalog",
+      "description": "High-gloss marketing trifold brochure highlighting luxury villas.",
+      "image_url": "/assets/portfolio_brochure.jpg",
+      "is_international": 0,
+      "created_at": "2026-06-24T13:15:36.268Z"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "client_name": "Rajesh Patel",
+      "review": "Akshar Graphics has been printing our business cards and banners for over 5 years. Their quality is top-notch and delivery is always on time!",
+      "image_url": "/assets/client1.jpg",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    },
+    {
+      "id": 2,
+      "client_name": "Sneha Mehta",
+      "review": "We ordered our wedding cards from Chandreshbhai. Every card was beautifully crafted. Our guests loved them. Highly recommended!",
+      "image_url": "/assets/client2.jpg",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    }
+  ],
+  "inquiries": [],
+  "settings": [
+    {
+      "id": 1,
+      "logo_url": "/assets/logo.png",
+      "company_name": "Akshar Graphics",
+      "email": "akshargraphics15@gmail.com",
+      "phone": "98981 91220",
+      "address": "11, Sahvas Apt., Chowki Sheri Naka, Timaliyawad Main Road, Nanpura, Surat - 395001",
+      "social_links": "{\"facebook\":\"https://facebook.com\",\"instagram\":\"https://instagram.com\",\"whatsapp\":\"https://wa.me/919898191220\"}",
+      "seo_settings": "{\"metaTitle\":\"Akshar Graphics - Premium Printing & Branding Surat\",\"metaDescription\":\"20+ Years of Trusted Printing & Creative Solutions in Surat, Gujarat. Wedding Cards, Branding, Banners & more.\",\"keywords\":\"printing surat, graphics surat, wedding cards surat\"}",
+      "created_at": "2026-06-24T13:15:36.268Z"
+    }
+  ]
+}
