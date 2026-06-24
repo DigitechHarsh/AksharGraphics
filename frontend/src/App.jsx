@@ -80,7 +80,19 @@ export default function App() {
       </AnimatePresence>
 
       {!isLoading && (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen relative">
+          {/* Global Floating RGB Orbs — ambient background effect */}
+          {!isAdminRoute && (
+            <div className="rgb-floating-orbs" aria-hidden="true">
+              <div className="rgb-orb rgb-orb-1" />
+              <div className="rgb-orb rgb-orb-2" />
+              <div className="rgb-orb rgb-orb-3" />
+              <div className="rgb-orb rgb-orb-4" />
+              <div className="rgb-orb rgb-orb-5" />
+              <div className="rgb-orb rgb-orb-6" />
+            </div>
+          )}
+
           {/* Global Sticky Navigation (Hidden in Admin Dashboard) */}
           {!isAdminRoute && <Header />}
 
