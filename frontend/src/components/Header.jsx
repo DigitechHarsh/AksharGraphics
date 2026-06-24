@@ -55,10 +55,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-header ${
         isScrolled
-          ? 'glass-header py-3 shadow-md shadow-brand-charcoal/5'
-          : 'glass-header-transparent py-5'
+          ? 'py-3 shadow-md shadow-brand-charcoal/5'
+          : 'py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -120,7 +120,7 @@ export default function Header() {
 
       {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[60px] bottom-0 bg-brand-cream/95 backdrop-blur-md z-30 flex flex-col justify-between py-12 px-8 border-t border-brand-red/10 animate-fade-in">
+        <div className="md:hidden fixed inset-x-0 top-[60px] bottom-0 bg-[#FCFAF6] backdrop-blur-md z-30 flex flex-col justify-between py-12 px-8 border-t border-brand-red/10 overflow-x-hidden overflow-y-auto">
           <nav className="flex flex-col space-y-6">
             {navLinks.map((link) => (
               <NavLink

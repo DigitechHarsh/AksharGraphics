@@ -398,7 +398,6 @@ export default function Home() {
 
       {/* Why Choose Us Section */}
       <section className="bg-brand-grey/30 py-12 px-6 relative overflow-hidden">
-        {/* Radial light leak behind bento grid */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rainbow-light-leak pointer-events-none -z-10 opacity-70" />
         
         <div className="max-w-7xl mx-auto">
@@ -410,220 +409,97 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-poppins font-extrabold text-brand-charcoal">
               Delivering Quality & Trust Since 2000
             </h2>
-            <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-              With over two decades of creative graphic designs and premium offset/digital print installations, we assure your satisfaction.
-            </p>
           </div>
 
-          {/* Cards Grid (Bento Grid blended with Clean Minimalism) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Cards Grid — 3 clean cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            {/* Card 1: 20+ Years Experience (col-span-2) */}
-            <TiltCard className="lg:col-span-2 h-full rainbow-glow-wrapper">
+            {/* Card 1: 20+ Years Experience */}
+            <TiltCard className="h-full rainbow-glow-wrapper">
               <motion.div
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group transition-all duration-300 h-full text-left"
+                className="bg-white p-6 rounded-[1.4rem] flex flex-col justify-between space-y-5 group transition-all duration-300 h-full text-left"
               >
-                <div className="space-y-4 max-w-md">
+                <div className="space-y-3">
                   <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <HiCalendar size={28} />
                   </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
+                  <h3 className="font-poppins font-bold text-lg text-brand-charcoal">
                     20+ Years Experience
                   </h3>
                   <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    Two decades of expert knowledge handling complex corporate designs and print specifications. Established in Surat, serving clients with dedication since 2000.
+                    Expert knowledge in corporate design and print since 2000.
                   </p>
                 </div>
-                <div className="shrink-0 flex flex-col items-center justify-center bg-brand-cream/40 border border-brand-red/10 rounded-2xl p-6 w-full md:w-auto text-center md:min-w-[150px]">
-                  <span className="block text-4xl font-poppins font-black text-brand-red">2000</span>
-                  <span className="text-[10px] font-poppins font-bold tracking-widest text-brand-charcoal/50 uppercase mt-1">Established Year</span>
+                <div className="bg-brand-cream/40 border border-brand-red/10 rounded-xl p-4 text-center">
+                  <span className="block text-3xl font-poppins font-black text-brand-red">2000</span>
+                  <span className="text-[10px] font-poppins font-bold tracking-widest text-brand-charcoal/50 uppercase">Established</span>
                 </div>
               </motion.div>
             </TiltCard>
 
-            {/* Card 2: Premium Quality (col-span-1) */}
-            <TiltCard className="lg:col-span-1 h-full rainbow-glow-wrapper">
+            {/* Card 2: Premium Quality */}
+            <TiltCard className="h-full rainbow-glow-wrapper">
               <motion.div
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col justify-between space-y-6 group transition-all duration-300 h-full text-left"
+                className="bg-white p-6 rounded-[1.4rem] flex flex-col justify-between space-y-5 group transition-all duration-300 h-full text-left"
               >
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <HiShieldCheck size={28} />
                   </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
+                  <h3 className="font-poppins font-bold text-lg text-brand-charcoal">
                     Premium Quality Printing
                   </h3>
                   <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    State-of-the-art offset and digital presses ensuring ultra-crisp resolutions, vivid color fidelity, and rich textures.
+                    Ultra-crisp offset & digital presses with vivid color fidelity.
                   </p>
                 </div>
-                
-                {/* Visual Detail: CMYK Color proof scale */}
-                <div className="border-t border-brand-charcoal/5 pt-4">
-                  <span className="text-[10px] font-poppins font-bold tracking-widest text-brand-charcoal/40 uppercase block mb-2.5">CMYK Print Proof Bar</span>
+                <div className="border-t border-brand-charcoal/5 pt-3">
+                  <span className="text-[10px] font-poppins font-bold tracking-widest text-brand-charcoal/40 uppercase block mb-2">CMYK Proof</span>
                   <div className="flex space-x-2">
-                    <div className="flex flex-col items-center space-y-1">
-                      <span className="w-8 h-8 rounded-lg bg-[#00aeef] block shadow-inner" title="Cyan (C)"></span>
-                      <span className="text-[9px] font-mono text-brand-charcoal/60">C</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-1">
-                      <span className="w-8 h-8 rounded-lg bg-[#ec008c] block shadow-inner" title="Magenta (M)"></span>
-                      <span className="text-[9px] font-mono text-brand-charcoal/60">M</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-1">
-                      <span className="w-8 h-8 rounded-lg bg-[#fff200] block shadow-inner" title="Yellow (Y)"></span>
-                      <span className="text-[9px] font-mono text-brand-charcoal/60">Y</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-1">
-                      <span className="w-8 h-8 rounded-lg bg-[#2B2B2B] block shadow-inner" title="Key/Black (K)"></span>
-                      <span className="text-[9px] font-mono text-brand-charcoal/60">K</span>
-                    </div>
+                    <span className="w-7 h-7 rounded-lg bg-[#00aeef] block shadow-inner" />
+                    <span className="w-7 h-7 rounded-lg bg-[#ec008c] block shadow-inner" />
+                    <span className="w-7 h-7 rounded-lg bg-[#fff200] block shadow-inner" />
+                    <span className="w-7 h-7 rounded-lg bg-[#2B2B2B] block shadow-inner" />
                   </div>
                 </div>
               </motion.div>
             </TiltCard>
 
-            {/* Card 3: Creative Designs (col-span-1) */}
-            <TiltCard className="lg:col-span-1 h-full rainbow-glow-wrapper">
+            {/* Card 3: Trusted by Thousands */}
+            <TiltCard className="h-full rainbow-glow-wrapper">
               <motion.div
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col justify-between space-y-6 group transition-all duration-300 h-full text-left"
+                className="bg-white p-6 rounded-[1.4rem] flex flex-col justify-between space-y-5 group transition-all duration-300 h-full text-left"
               >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
-                    <HiSparkles size={28} />
-                  </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
-                    Creative Artwork Designs
-                  </h3>
-                  <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    Expert design studio specializing in brand creation, custom vector layouts, matching color proofs, and handcrafted wedding artwork.
-                  </p>
-                </div>
-                
-                {/* Visual Detail: Creative swatch details */}
-                <div className="bg-brand-grey/60 rounded-xl p-3.5 flex items-center justify-between border border-brand-charcoal/5">
-                  <span className="text-[10px] font-poppins font-bold text-brand-charcoal/60">Vector Swatches</span>
-                  <div className="flex -space-x-2">
-                    <span className="w-5 h-5 rounded-full bg-brand-red border-2 border-white block"></span>
-                    <span className="w-5 h-5 rounded-full bg-amber-500 border-2 border-white block"></span>
-                    <span className="w-5 h-5 rounded-full bg-emerald-500 border-2 border-white block"></span>
-                    <span className="w-5 h-5 rounded-full bg-blue-500 border-2 border-white block"></span>
-                  </div>
-                </div>
-              </motion.div>
-            </TiltCard>
-
-            {/* Card 4: Fast Delivery (col-span-2) */}
-            <TiltCard className="lg:col-span-2 h-full rainbow-glow-wrapper">
-              <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group transition-all duration-300 h-full text-left"
-              >
-                <div className="space-y-4 max-w-md">
-                  <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
-                    <HiArrowRight size={28} />
-                  </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
-                    Fast & Express Delivery
-                  </h3>
-                  <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    Quick turnaround cycles with dedicated express courier partners. We track each package carefully to ensure secure shipment delivery across Gujarat and India.
-                  </p>
-                </div>
-                
-                {/* Visual Detail: Tracker Bar */}
-                <div className="bg-brand-grey/50 rounded-2xl p-5 border border-brand-charcoal/5 w-full md:w-auto md:min-w-[200px] flex flex-col justify-center">
-                  <span className="text-[10px] font-poppins font-extrabold text-brand-red tracking-wider uppercase block mb-3">Shipment Status</span>
-                  <div className="relative pl-6 space-y-4 border-l border-brand-red/30 text-[11px] font-sans font-semibold text-brand-charcoal/70">
-                    <div className="relative">
-                      <span className="absolute -left-[29px] top-0.5 w-3.5 h-3.5 rounded-full bg-brand-red border border-white flex items-center justify-center"><span className="w-1.5 h-1.5 rounded-full bg-white block"></span></span>
-                      <span>Order Printed</span>
-                    </div>
-                    <div className="relative">
-                      <span className="absolute -left-[29px] top-0.5 w-3.5 h-3.5 rounded-full bg-brand-red border border-white flex items-center justify-center"><span className="w-1.5 h-1.5 rounded-full bg-white block"></span></span>
-                      <span>Dispatched</span>
-                    </div>
-                    <div className="relative text-brand-charcoal/40 font-medium">
-                      <span className="absolute -left-[29px] top-0.5 w-3.5 h-3.5 rounded-full bg-brand-grey border border-brand-charcoal/10 flex items-center justify-center"></span>
-                      <span>Out for Delivery</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </TiltCard>
-
-            {/* Card 5: Affordable Pricing (col-span-1) */}
-            <TiltCard className="lg:col-span-1 h-full rainbow-glow-wrapper">
-              <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col justify-between space-y-6 group transition-all duration-300 h-full text-left"
-              >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
-                    <HiCurrencyRupee size={28} />
-                  </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
-                    Affordable Pricing Packages
-                  </h3>
-                  <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    Premium outputs priced competitively, featuring substantial discounts on large volume bulk print orders.
-                  </p>
-                </div>
-                
-                {/* Visual Detail: Price tag indicator */}
-                <div className="flex items-center space-x-2 text-brand-red font-poppins font-extrabold text-xs">
-                  <span className="bg-brand-red/10 px-3.5 py-1.5 rounded-full uppercase tracking-wider">No Hidden Fees</span>
-                </div>
-              </motion.div>
-            </TiltCard>
-
-            {/* Card 6: Trusted by Thousands (col-span-2) */}
-            <TiltCard className="lg:col-span-2 h-full rainbow-glow-wrapper">
-              <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="bg-white p-8 rounded-[1.4rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group transition-all duration-300 h-full text-left"
-              >
-                <div className="space-y-4 max-w-md">
+                <div className="space-y-3">
                   <div className="w-12 h-12 rounded-xl bg-brand-grey text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shadow-sm">
                     <HiCheckCircle size={28} />
                   </div>
-                  <h3 className="font-poppins font-bold text-xl text-brand-charcoal">
-                    Trusted by Thousands of Clients
+                  <h3 className="font-poppins font-bold text-lg text-brand-charcoal">
+                    Trusted by Thousands
                   </h3>
                   <p className="text-sm text-brand-charcoal/60 leading-relaxed font-sans">
-                    Surat's leading printer with thousands of satisfied corporate agencies, NRI wedding coordinators, hospitals, retail shops, and schools.
+                    Serving corporate agencies, NRI clients, hospitals & schools.
                   </p>
                 </div>
-                
-                {/* Visual Detail: Stats stack */}
-                <div className="grid grid-cols-2 gap-4 w-full md:w-auto shrink-0 md:min-w-[180px]">
-                  <div className="bg-brand-grey/50 p-4 rounded-xl border border-brand-charcoal/5 text-center">
-                    <span className="block text-2xl font-poppins font-extrabold text-brand-red">5k+</span>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-brand-grey/50 p-3 rounded-xl border border-brand-charcoal/5 text-center">
+                    <span className="block text-xl font-poppins font-extrabold text-brand-red">5k+</span>
                     <span className="text-[9px] font-sans font-bold text-brand-charcoal/50 uppercase tracking-widest">Clients</span>
                   </div>
-                  <div className="bg-brand-grey/50 p-4 rounded-xl border border-brand-charcoal/5 text-center">
-                    <span className="block text-2xl font-poppins font-extrabold text-brand-red">10M+</span>
+                  <div className="bg-brand-grey/50 p-3 rounded-xl border border-brand-charcoal/5 text-center">
+                    <span className="block text-xl font-poppins font-extrabold text-brand-red">10M+</span>
                     <span className="text-[9px] font-sans font-bold text-brand-charcoal/50 uppercase tracking-widest">Prints</span>
                   </div>
                 </div>
