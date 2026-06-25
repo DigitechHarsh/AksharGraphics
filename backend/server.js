@@ -23,7 +23,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Ensure upload folders exist
-const uploadsDir = path.join(__dirname, 'uploads');
+// On Hostinger, Git auto-deploy resets the nodejs folder and wipes out untracked files.
+// Storing uploads in the sibling public_html folder keeps them persistent and safe from Git resets.
+const siblingPublicHtml = path.join(__dirname, '..', 'public_html');
+const uploadsDir = fs.existsSync(siblingPublicHtml)
+  ? path.join(siblingPublicHtml, 'uploads')
+  : path.join(__dirname, 'uploads');
+
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
