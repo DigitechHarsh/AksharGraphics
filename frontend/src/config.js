@@ -33,4 +33,4 @@ export const API_STATIC_BASE =
   window.location.hostname.startsWith('10.') || 
   window.location.hostname.startsWith('172.')
     ? API_BASE_URL.replace('/api', '')
-    : '/api';
+    : '';
