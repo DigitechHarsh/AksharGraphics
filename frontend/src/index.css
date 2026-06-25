@@ -73,8 +73,8 @@ body {
   background: #D11414;
 }
 
-/* Custom Cursor with Trailing Glowing Rainbow Ring */
-.custom-cursor {
+/* Custom Cursor Dot (Instant Follow) */
+.custom-cursor-dot {
   width: 8px;
   height: 8px;
   background: linear-gradient(135deg, #D11414, #EAB308, #10B981, #3B82F6, #8B5CF6);
@@ -82,39 +82,59 @@ body {
   animation: rainbow-shift 3s linear infinite;
   border-radius: 50%;
   position: fixed;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+  margin-left: -4px;
+  margin-top: -4px;
   pointer-events: none;
   z-index: 9999;
   box-shadow: 0 0 10px rgba(209, 20, 20, 0.4);
+  will-change: transform;
   transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1), height 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.custom-cursor::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid rgba(209, 20, 20, 0.25);
+/* Custom Cursor Ring (Smooth Lag/Trailing Follow) */
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(209, 20, 20, 0.3);
   border-radius: 50%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin-left: -18px;
+  margin-top: -18px;
   pointer-events: none;
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s, background-color 0.3s;
+  z-index: 9998;
+  will-change: transform;
+  /* Smooth trailing effect on transform, with expansion transition */
+  transition: 
+    transform 0.08s cubic-bezier(0.25, 1, 0.5, 1),
+    width 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    height 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.custom-cursor-hover {
-  width: 14px;
-  height: 14px;
-  box-shadow: 0 0 20px rgba(209, 20, 20, 0.7);
+/* Hover States (controlled directly by class additions/removals in JS) */
+.custom-cursor-dot.custom-cursor-hover {
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  margin-top: -2px;
+  background: #FFF5DD; /* Cream inside hovered ring */
+  box-shadow: none;
 }
 
-.custom-cursor-hover::after {
-  width: 48px;
-  height: 48px;
-  border-color: rgba(209, 20, 20, 0.8);
+.custom-cursor-ring.custom-cursor-ring-hover {
+  width: 52px;
+  height: 52px;
+  margin-left: -26px;
+  margin-top: -26px;
+  border-color: rgba(209, 20, 20, 0.85);
   border-width: 2px;
-  background: radial-gradient(circle, rgba(209, 20, 20, 0.08) 0%, transparent 70%);
+  background-color: rgba(209, 20, 20, 0.08); /* Soft glow background inside ring */
+  box-shadow: 0 0 20px rgba(209, 20, 20, 0.15);
 }
 
 /* Floating Shapes Animations */
@@ -249,7 +269,8 @@ body {
   width: 75%;
   height: 75%;
   background: radial-gradient(circle, #D11414 0%, #ec4899 40%, transparent 75%);
-  animation: wave-move-1 20s infinite alternate ease-in-out, rgb-color-cycle-1 14s linear infinite;
+  animation: wave-move-1 20s infinite alternate ease-in-out;
+  will-change: transform;
 }
 
 /* Yellow-orange flowing blob */
@@ -259,7 +280,8 @@ body {
   width: 75%;
   height: 75%;
   background: radial-gradient(circle, #EAB308 0%, #f59e0b 40%, transparent 75%);
-  animation: wave-move-2 22s infinite alternate ease-in-out, rgb-color-cycle-2 16s linear infinite;
+  animation: wave-move-2 22s infinite alternate ease-in-out;
+  will-change: transform;
 }
 
 /* Green-teal flowing blob */
@@ -269,7 +291,8 @@ body {
   width: 65%;
   height: 65%;
   background: radial-gradient(circle, #10B981 0%, #06b6d4 40%, transparent 75%);
-  animation: wave-move-3 18s infinite alternate ease-in-out, rgb-color-cycle-3 12s linear infinite;
+  animation: wave-move-3 18s infinite alternate ease-in-out;
+  will-change: transform;
 }
 
 /* Blue-purple flowing blob */
@@ -279,7 +302,8 @@ body {
   width: 70%;
   height: 70%;
   background: radial-gradient(circle, #3B82F6 0%, #8B5CF6 40%, transparent 75%);
-  animation: wave-move-4 24s infinite alternate ease-in-out, rgb-color-cycle-4 15s linear infinite;
+  animation: wave-move-4 24s infinite alternate ease-in-out;
+  will-change: transform;
 }
 
 @keyframes wave-move-1 {
@@ -325,9 +349,9 @@ body {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(100px);
+  filter: blur(80px);
   opacity: 0.07;
-  will-change: transform, background;
+  will-change: transform;
 }
 
 /* Orb 1 — top-left, large red→magenta cycle */
@@ -337,7 +361,7 @@ body {
   top: -8%;
   left: -5%;
   background: radial-gradient(circle, #D11414, #ec4899, transparent 70%);
-  animation: rgb-drift-1 18s ease-in-out infinite alternate, rgb-color-cycle-1 12s linear infinite;
+  animation: rgb-drift-1 18s ease-in-out infinite alternate;
 }
 
 /* Orb 2 — top-right, green→cyan cycle */
@@ -347,7 +371,7 @@ body {
   top: 5%;
   right: -8%;
   background: radial-gradient(circle, #10B981, #06b6d4, transparent 70%);
-  animation: rgb-drift-2 22s ease-in-out infinite alternate, rgb-color-cycle-2 15s linear infinite;
+  animation: rgb-drift-2 22s ease-in-out infinite alternate;
 }
 
 /* Orb 3 — mid-left, blue→violet cycle */
@@ -357,7 +381,7 @@ body {
   top: 35%;
   left: -10%;
   background: radial-gradient(circle, #3B82F6, #8B5CF6, transparent 70%);
-  animation: rgb-drift-3 20s ease-in-out infinite alternate, rgb-color-cycle-3 10s linear infinite;
+  animation: rgb-drift-3 20s ease-in-out infinite alternate;
 }
 
 /* Orb 4 — bottom-right, yellow→amber cycle */
@@ -367,7 +391,7 @@ body {
   bottom: -5%;
   right: -6%;
   background: radial-gradient(circle, #EAB308, #f59e0b, transparent 70%);
-  animation: rgb-drift-4 24s ease-in-out infinite alternate, rgb-color-cycle-4 14s linear infinite;
+  animation: rgb-drift-4 24s ease-in-out infinite alternate;
 }
 
 /* Orb 5 — center, subtle violet→pink */
@@ -377,7 +401,7 @@ body {
   top: 55%;
   left: 40%;
   background: radial-gradient(circle, #8B5CF6, #ec4899, transparent 70%);
-  animation: rgb-drift-5 16s ease-in-out infinite alternate, rgb-color-cycle-1 18s linear infinite;
+  animation: rgb-drift-5 16s ease-in-out infinite alternate;
   opacity: 0.05;
 }
 
@@ -388,7 +412,7 @@ body {
   bottom: 10%;
   left: 5%;
   background: radial-gradient(circle, #14b8a6, #10B981, transparent 70%);
-  animation: rgb-drift-6 19s ease-in-out infinite alternate, rgb-color-cycle-2 11s linear infinite;
+  animation: rgb-drift-6 19s ease-in-out infinite alternate;
   opacity: 0.06;
 }
 
@@ -431,29 +455,4 @@ body {
   0%   { transform: translate(0, 0) scale(1); }
   50%  { transform: translate(50px, -60px) scale(1.15); }
   100% { transform: translate(-30px, 80px) scale(0.92); }
-}
-
-/* RGB color cycling — smoothly shift hue via background animation */
-@keyframes rgb-color-cycle-1 {
-  0%   { filter: blur(100px) hue-rotate(0deg); }
-  50%  { filter: blur(110px) hue-rotate(180deg); }
-  100% { filter: blur(100px) hue-rotate(360deg); }
-}
-
-@keyframes rgb-color-cycle-2 {
-  0%   { filter: blur(100px) hue-rotate(0deg); }
-  50%  { filter: blur(95px) hue-rotate(-180deg); }
-  100% { filter: blur(100px) hue-rotate(-360deg); }
-}
-
-@keyframes rgb-color-cycle-3 {
-  0%   { filter: blur(100px) hue-rotate(0deg); }
-  50%  { filter: blur(105px) hue-rotate(120deg); }
-  100% { filter: blur(100px) hue-rotate(240deg); }
-}
-
-@keyframes rgb-color-cycle-4 {
-  0%   { filter: blur(100px) hue-rotate(0deg); }
-  50%  { filter: blur(108px) hue-rotate(-120deg); }
-  100% { filter: blur(100px) hue-rotate(-240deg); }
 }

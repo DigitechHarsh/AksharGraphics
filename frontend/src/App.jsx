@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
@@ -17,8 +17,8 @@ import Works from './pages/Works';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isCursorHovered, setIsCursorHovered] = useState(false);
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
   const location = useLocation();
 
   // Loader Timeout
@@ -32,27 +32,38 @@ export default function App() {
   // Custom Cursor Tracker
   useEffect(() => {
     const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+      const dot = dotRef.current;
+      const ring = ringRef.current;
+      if (!dot || !ring) return;
 
-    const handleMouseOver = (e) => {
+      // Position cursor using GPU-accelerated transform translate3d
+      dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      ring.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
+      // Check if mouse is hovering over interactive elements
       const target = e.target;
+      if (!target) return;
+
       const isClickable = 
         target.tagName === 'A' || 
         target.tagName === 'BUTTON' || 
         target.closest('a') || 
         target.closest('button') || 
         target.classList.contains('cursor-pointer');
-      
-      setIsCursorHovered(!!isClickable);
+
+      if (isClickable) {
+        dot.classList.add('custom-cursor-hover');
+        ring.classList.add('custom-cursor-ring-hover');
+      } else {
+        dot.classList.remove('custom-cursor-hover');
+        ring.classList.remove('custom-cursor-ring-hover');
+      }
     };
 
     window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
-      window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
 
@@ -65,13 +76,15 @@ export default function App() {
 
   return (
     <>
-      {/* Custom Cursor */}
+      {/* Custom Cursor Dot */}
       <div
-        className={`hidden md:block custom-cursor ${isCursorHovered ? 'custom-cursor-hover' : ''}`}
-        style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-        }}
+        ref={dotRef}
+        className="hidden md:block custom-cursor-dot"
+      />
+      {/* Custom Cursor Ring */}
+      <div
+        ref={ringRef}
+        className="hidden md:block custom-cursor-ring"
       />
 
       {/* Loading Transition Screen */}

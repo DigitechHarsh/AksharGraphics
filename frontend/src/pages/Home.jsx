@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiArrowRight, HiChevronLeft, HiChevronRight, HiCheckCircle, HiCalendar, HiLightBulb, HiSparkles, HiShieldCheck, HiCurrencyRupee } from 'react-icons/hi';
@@ -7,10 +7,11 @@ import SEO from '../components/SEO';
 import { API_BASE_URL, API_STATIC_BASE } from '../config';
 
 function TiltCard({ children, className = '' }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const cardRef = useRef(null);
 
   const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
     const mouseX = e.clientX - rect.left - (width / 2);
@@ -20,20 +21,21 @@ function TiltCard({ children, className = '' }) {
     const rX = (mouseY / (height / 2)) * 8;
     const rY = -(mouseX / (width / 2)) * 8;
 
-    setTilt({ x: rX, y: rY });
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg)`;
   };
 
   const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
   };
 
   return (
     <div
+      ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`transition-transform duration-200 ease-out ${className}`}
       style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transformStyle: 'preserve-3d'
       }}
     >
