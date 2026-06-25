@@ -257,65 +257,56 @@ export default function Home() {
         </div>
 
         {/* Right Side: Animated Hero Slider inside Glowing Rainbow Wrapper */}
-        <div className="md:w-1/2 w-full h-[350px] md:h-[500px] relative rounded-[2rem] shadow-2xl z-10 rainbow-glow-wrapper">
+        <div className="md:w-1/2 w-full h-[400px] md:h-[520px] relative rounded-[2rem] shadow-2xl z-10 rainbow-glow-wrapper">
           <div className="w-full h-full relative rounded-[1.9rem] overflow-hidden bg-white glass-card">
             <AnimatePresence mode="wait">
               {services.map((svc, idx) => (
                 idx === currentSlide && (
                   <motion.div
                     key={svc.id}
-                    initial={{ opacity: 0, scale: 1.05 }}
+                    initial={{ opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.8 }}
-                    className="absolute inset-0 flex flex-col justify-end"
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute inset-0"
                   >
-                    {/* Backdrop Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/20 to-transparent z-10" />
+                    {/* Fallback Modern Mesh Gradient (shows up instantly before image loads) */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/10 via-amber-500/5 to-blue-500/10 z-0" />
 
-                    {/* Fallback color block or image */}
+                    {/* Service Image */}
                     <img
                       src={svc.image_url.startsWith('/') ? `${API_STATIC_BASE}${svc.image_url}` : svc.image_url}
                       alt={svc.name}
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = "https://images.unsplash.com/photo-1561070791-26c113006238?q=80&w=600&auto=format&fit=crop"; // Unsplash creative mockup fallback
+                        e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"; // Premium artistic gradient fallback
                       }}
-                      className="absolute inset-0 w-full h-full object-cover object-center"
+                      className="absolute inset-0 w-full h-full object-cover object-center z-0"
                     />
 
-                    {/* Slider Content Overlay */}
-                    <div className="p-8 md:p-12 relative z-20 space-y-3 text-white max-w-lg">
-                      <motion.span
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
-                        className="bg-brand-red px-4 py-1.5 rounded-full text-xs font-poppins font-semibold uppercase tracking-widest"
-                      >
+                    {/* Subtle Overlay to ensure text readability */}
+                    <div className="absolute inset-0 bg-brand-charcoal/25 z-10" />
+
+                    {/* Floating Glassmorphic Details Card */}
+                    <div className="absolute bottom-6 left-6 right-6 md:right-auto md:max-w-md bg-brand-charcoal/75 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] border border-white/15 text-white z-20 shadow-2xl flex flex-col space-y-4">
+                      
+                      {/* Category Badge */}
+                      <span className="bg-brand-red text-white text-[10px] font-poppins font-black uppercase tracking-widest px-3.5 py-1 rounded-full w-fit">
                         {svc.category}
-                      </motion.span>
-                      <motion.h3
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                        className="text-2xl md:text-3xl font-poppins font-extrabold"
-                      >
+                      </span>
+                      
+                      {/* Service Title */}
+                      <h3 className="text-2xl md:text-3xl font-poppins font-black leading-tight text-white">
                         {svc.name}
-                      </motion.h3>
-                      <motion.p
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 0.5 }}
-                        className="text-sm text-brand-grey/80 leading-relaxed font-sans line-clamp-2"
-                      >
+                      </h3>
+                      
+                      {/* Service Description */}
+                      <p className="text-xs text-brand-grey/85 leading-relaxed font-sans line-clamp-3">
                         {svc.description}
-                      </motion.p>
-                      <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
-                        className="pt-2"
-                      >
+                      </p>
+                      
+                      {/* CTA Button & Interactive navigation */}
+                      <div className="pt-4 flex items-center justify-between border-t border-white/10">
                         <Link
                           to="/contact"
                           className="inline-flex items-center space-x-2 text-brand-cream hover:text-brand-red font-poppins font-bold text-xs uppercase tracking-wider transition-colors duration-200"
@@ -323,7 +314,25 @@ export default function Home() {
                           <span>Inquire Now</span>
                           <HiArrowRight size={14} />
                         </Link>
-                      </motion.div>
+                        
+                        <div className="flex items-center space-x-3">
+                          <span className="text-[10px] font-mono text-white/50 mr-1">
+                            0{idx + 1} / 0{services.length}
+                          </span>
+                          <button
+                            onClick={handlePrevHero}
+                            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-brand-red hover:text-white text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                          >
+                            <HiChevronLeft size={16} />
+                          </button>
+                          <button
+                            onClick={handleNextHero}
+                            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-brand-red hover:text-white text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                          >
+                            <HiChevronRight size={16} />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 )
@@ -331,47 +340,16 @@ export default function Home() {
             </AnimatePresence>
 
             {/* Floating Info Tag Overlay */}
-            <div className="absolute top-6 right-6 z-20 bg-brand-charcoal/80 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 shadow-lg pointer-events-none hidden sm:flex items-center space-x-2">
+            <div className="absolute top-6 right-6 z-20 bg-brand-charcoal/70 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 shadow-lg pointer-events-none hidden sm:flex items-center space-x-2">
               <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
               <span className="text-[10px] font-poppins font-black text-white uppercase tracking-widest">ISO 9001:2015 Quality</span>
             </div>
 
             {/* Floating Stats Stack Overlay */}
-            <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-brand-red/10 shadow-lg pointer-events-none hidden sm:block text-left">
-              <span className="text-[9px] font-poppins font-extrabold text-brand-red uppercase tracking-widest block mb-1">Print Volume</span>
-              <span className="text-xs font-poppins font-black text-brand-charcoal">10,000,000+ Impressions</span>
+            <div className="absolute bottom-6 right-6 z-20 bg-brand-charcoal/70 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10 shadow-lg pointer-events-none hidden lg:block text-left text-white max-w-[180px]">
+              <span className="text-[9px] font-poppins font-black text-brand-red uppercase tracking-widest block mb-1">Print Volume</span>
+              <span className="text-xs font-poppins font-bold text-white block">10,000,000+ Prints</span>
             </div>
-
-            {/* Navigation Controls */}
-            {services.length > 1 && (
-              <>
-                <button
-                  onClick={handlePrevHero}
-                  className="absolute top-1/2 left-4 -translate-y-1/2 w-11 h-11 rounded-full bg-brand-cream/80 backdrop-blur-sm text-brand-charcoal hover:bg-brand-red hover:text-white flex items-center justify-center transition-all duration-300 z-20 shadow-md"
-                >
-                  <HiChevronLeft size={22} />
-                </button>
-                <button
-                  onClick={handleNextHero}
-                  className="absolute top-1/2 right-4 -translate-y-1/2 w-11 h-11 rounded-full bg-brand-cream/80 backdrop-blur-sm text-brand-charcoal hover:bg-brand-red hover:text-white flex items-center justify-center transition-all duration-300 z-20 shadow-md"
-                >
-                  <HiChevronRight size={22} />
-                </button>
-
-                {/* Dot Indicators */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-                  {services.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        idx === currentSlide ? 'bg-brand-red w-6' : 'bg-white/50 hover:bg-white'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
           </div>
         </div>
       </section>
