@@ -240,14 +240,12 @@ body::before {
 }
 
 .rainbow-wave-bg::before,
-.rainbow-wave-bg::after,
-.rainbow-wave-bg .wave-blob-1,
-.rainbow-wave-bg .wave-blob-2 {
+.rainbow-wave-bg::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(65px);
-  opacity: 0.28;
+  filter: blur(45px);
+  opacity: 0.25;
   pointer-events: none;
   will-change: transform;
   transform: translate3d(0, 0, 0);

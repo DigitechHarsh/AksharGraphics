@@ -124,6 +124,15 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [services]);
 
+  // Preload service images to prevent slide transition lag
+  useEffect(() => {
+    if (services.length === 0) return;
+    services.forEach((s) => {
+      const img = new Image();
+      img.src = s.image_url.startsWith('/') ? `${API_STATIC_BASE}${s.image_url}` : s.image_url;
+    });
+  }, [services]);
+
   const handleNextHero = () => {
     if (services.length === 0) return;
     setCurrentSlide((prev) => (prev + 1) % services.length);
@@ -206,11 +215,8 @@ export default function Home() {
         <div className="relative w-full h-auto min-h-[580px] md:h-[580px] rounded-[2.5rem] overflow-hidden border border-brand-red/10 shadow-2xl bg-brand-charcoal flex flex-col justify-between p-6 md:p-12">
           
           {/* Animated Wavy RGB Background */}
-          <div className="absolute inset-0 z-0 opacity-20 pointer-events-none overflow-hidden rounded-[2.5rem]">
-            <div className="rainbow-wave-bg">
-              <div className="wave-blob-1"></div>
-              <div className="wave-blob-2"></div>
-            </div>
+          <div className="absolute inset-0 z-0 opacity-15 pointer-events-none overflow-hidden rounded-[2.5rem]">
+            <div className="rainbow-wave-bg" />
           </div>
 
           {/* Active Service Background Image */}
