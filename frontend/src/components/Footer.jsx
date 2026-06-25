@@ -115,11 +115,6 @@ export default function Footer() {
                 Contact Us
               </Link>
             </li>
-            <li>
-              <Link to="/admin" className="text-brand-grey/40 hover:text-brand-red transition-colors duration-200">
-                Admin Panel
-              </Link>
-            </li>
           </ul>
         </div>
 

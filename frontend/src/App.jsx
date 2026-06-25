@@ -28,16 +28,36 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Custom Cursor Tracker
+  // Custom Cursor Tracker with lerped animation and event delegation
   useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
     const updateMousePosition = (e) => {
-      const cursor = cursorRef.current;
-      if (!cursor) return;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
 
-      // Position cursor using GPU-accelerated transform translate3d
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    let rafId;
+    const updateCursor = () => {
+      const speed = 0.15; // Lower values = smoother trailing, higher = faster response
+      currentX += (mouseX - currentX) * speed;
+      currentY += (mouseY - currentY) * speed;
+      
+      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      rafId = requestAnimationFrame(updateCursor);
+    };
 
-      // Check if mouse is hovering over interactive elements
+    window.addEventListener('mousemove', updateMousePosition);
+    rafId = requestAnimationFrame(updateCursor);
+
+    // Bubble check on hover state changes to avoid heavy layout thrashing on every pixel move
+    const handleMouseOver = (e) => {
       const target = e.target;
       if (!target) return;
 
@@ -55,10 +75,12 @@ export default function App() {
       }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
+    window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
+      window.removeEventListener('mouseover', handleMouseOver);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 

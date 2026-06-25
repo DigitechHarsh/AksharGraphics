@@ -149,6 +149,16 @@ export default function Home() {
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeCategory);
 
+  // Redesigned Active Service for Hero
+  const activeSvc = services[currentSlide] || {
+    id: 0,
+    category: "Design & Print",
+    name: "Premium Printing Services",
+    description: "Surat's leading agency for premium wedding cards, branding assets, corporate catalogs, and custom graphic design services. We turn imagination into high-definition prints.",
+    image_url: "/assets/service_printing.jpg",
+    benefits: ["Premium Print Quality", "Custom Graphic Tailoring", "20+ Years Local Trust"]
+  };
+
   return (
     <>
       <SEO 
@@ -192,163 +202,174 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex flex-col md:flex-row items-center justify-between py-8 px-6 max-w-7xl mx-auto gap-6 overflow-hidden rounded-[2rem] my-4 border border-brand-red/5">
-        {/* Rainbow RGB flowing waves background */}
-        <div className="rainbow-wave-bg">
-          <div className="wave-blob-1"></div>
-          <div className="wave-blob-2"></div>
-        </div>
+      <section className="relative w-full max-w-7xl mx-auto my-6 px-4 md:px-6 z-10">
+        <div className="relative w-full h-auto min-h-[580px] md:h-[580px] rounded-[2.5rem] overflow-hidden border border-brand-red/10 shadow-2xl bg-brand-charcoal flex flex-col justify-between p-6 md:p-12">
+          
+          {/* Animated Wavy RGB Background */}
+          <div className="absolute inset-0 z-0 opacity-20 pointer-events-none overflow-hidden rounded-[2.5rem]">
+            <div className="rainbow-wave-bg">
+              <div className="wave-blob-1"></div>
+              <div className="wave-blob-2"></div>
+            </div>
+          </div>
 
-        {/* Left Side: Brand Core */}
-        <div className="md:w-1/2 flex flex-col justify-center space-y-6 text-left z-10">
-          {/* Pulsing Pill Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-brand-charcoal/5 border border-brand-red/10 rounded-full px-4 py-1.5 text-xs font-poppins font-bold text-brand-charcoal uppercase tracking-wider w-fit"
-          >
-            <span className="flex h-2.5 w-2.5 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-red"></span>
-            </span>
-            <span>Surat's Premier Printing & Branding Agency</span>
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-poppins font-extrabold text-brand-charcoal leading-tight"
-          >
-            20+ Years of <br />
-            <span className="cmyk-rainbow-text">Trusted Printing</span> <br />
-            & Creative Solutions
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-base text-brand-charcoal/70 leading-relaxed font-sans max-w-lg"
-          >
-            Surat's leading agency for premium wedding cards, branding assets, corporate catalogs, school stationery, and custom graphic design services. We turn your imagination into high-definition prints.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex flex-wrap gap-4 pt-4"
-          >
-            <Link
-              to="/contact"
-              className="bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-semibold text-sm tracking-wider uppercase px-8 py-4 rounded-full shadow-xl shadow-brand-red/25 hover:shadow-brand-red/35 transition-all duration-200"
-            >
-              Get Free Quote
-            </Link>
-            <Link
-              to="/services"
-              className="bg-white hover:bg-brand-grey text-brand-charcoal font-poppins font-semibold text-sm tracking-wider uppercase px-8 py-4 rounded-full border border-brand-charcoal/10 shadow-sm transition-all duration-200"
-            >
-              Explore Services
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Right Side: Animated Hero Slider inside Glowing Rainbow Wrapper */}
-        <div className="md:w-1/2 w-full h-[400px] md:h-[520px] relative rounded-[2rem] shadow-2xl z-10 rainbow-glow-wrapper">
-          <div className="w-full h-full relative rounded-[1.9rem] overflow-hidden bg-white glass-card">
+          {/* Active Service Background Image */}
+          <div className="absolute inset-0 z-0">
             <AnimatePresence mode="wait">
-              {services.map((svc, idx) => (
-                idx === currentSlide && (
-                  <motion.div
-                    key={svc.id}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.6 }}
-                    className="absolute inset-0"
-                  >
-                    {/* Fallback Modern Mesh Gradient (shows up instantly before image loads) */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/10 via-amber-500/5 to-blue-500/10 z-0" />
-
-                    {/* Service Image */}
-                    <img
-                      src={svc.image_url.startsWith('/') ? `${API_STATIC_BASE}${svc.image_url}` : svc.image_url}
-                      alt={svc.name}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"; // Premium artistic gradient fallback
-                      }}
-                      className="absolute inset-0 w-full h-full object-cover object-center z-0"
-                    />
-
-                    {/* Subtle Overlay to ensure text readability */}
-                    <div className="absolute inset-0 bg-brand-charcoal/25 z-10" />
-
-                    {/* Floating Glassmorphic Details Card */}
-                    <div className="absolute bottom-6 left-6 right-6 md:right-auto md:max-w-md bg-brand-charcoal/75 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] border border-white/15 text-white z-20 shadow-2xl flex flex-col space-y-4">
-                      
-                      {/* Category Badge */}
-                      <span className="bg-brand-red text-white text-[10px] font-poppins font-black uppercase tracking-widest px-3.5 py-1 rounded-full w-fit">
-                        {svc.category}
-                      </span>
-                      
-                      {/* Service Title */}
-                      <h3 className="text-2xl md:text-3xl font-poppins font-black leading-tight text-white">
-                        {svc.name}
-                      </h3>
-                      
-                      {/* Service Description */}
-                      <p className="text-xs text-brand-grey/85 leading-relaxed font-sans line-clamp-3">
-                        {svc.description}
-                      </p>
-                      
-                      {/* CTA Button & Interactive navigation */}
-                      <div className="pt-4 flex items-center justify-between border-t border-white/10">
-                        <Link
-                          to="/contact"
-                          className="inline-flex items-center space-x-2 text-brand-cream hover:text-brand-red font-poppins font-bold text-xs uppercase tracking-wider transition-colors duration-200"
-                        >
-                          <span>Inquire Now</span>
-                          <HiArrowRight size={14} />
-                        </Link>
-                        
-                        <div className="flex items-center space-x-3">
-                          <span className="text-[10px] font-mono text-white/50 mr-1">
-                            0{idx + 1} / 0{services.length}
-                          </span>
-                          <button
-                            onClick={handlePrevHero}
-                            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-brand-red hover:text-white text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
-                          >
-                            <HiChevronLeft size={16} />
-                          </button>
-                          <button
-                            onClick={handleNextHero}
-                            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-brand-red hover:text-white text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
-                          >
-                            <HiChevronRight size={16} />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              ))}
+              <motion.div
+                key={activeSvc.id}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.8 }}
+                className="absolute inset-0 w-full h-full"
+              >
+                <img
+                  src={activeSvc.image_url.startsWith('/') ? `${API_STATIC_BASE}${activeSvc.image_url}` : activeSvc.image_url}
+                  alt={activeSvc.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop";
+                  }}
+                  className="w-full h-full object-cover object-center"
+                />
+              </motion.div>
             </AnimatePresence>
+            {/* Rich Dark Vignette Overlay for perfect readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal via-brand-charcoal/85 to-brand-charcoal/20 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-transparent to-brand-charcoal/40 z-10" />
+          </div>
 
-            {/* Floating Info Tag Overlay */}
-            <div className="absolute top-6 right-6 z-20 bg-brand-charcoal/70 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 shadow-lg pointer-events-none hidden sm:flex items-center space-x-2">
-              <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
-              <span className="text-[10px] font-poppins font-black text-white uppercase tracking-widest">ISO 9001:2015 Quality</span>
+          {/* Top Badge Row */}
+          <div className="relative z-20 flex flex-wrap items-center justify-between gap-4 w-full">
+            <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 text-[10px] font-poppins font-black text-brand-cream uppercase tracking-widest">
+              <span className="flex h-2 w-2 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
+              </span>
+              <span>ESTD 2000 • 20+ Years Excellence</span>
+            </div>
+            <div className="hidden sm:flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 text-[10px] font-poppins font-black text-white uppercase tracking-widest">
+              <HiSparkles className="text-amber-400" size={12} />
+              <span>ISO 9001:2015 QUALITY CERTIFIED</span>
+            </div>
+          </div>
+
+          {/* Center Details Section */}
+          <div className="relative z-20 max-w-3xl text-left my-8 md:my-auto flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSvc.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="space-y-4"
+              >
+                {/* Active Service Category */}
+                <span className="inline-block bg-brand-red text-white text-[10px] font-poppins font-black uppercase tracking-widest px-3.5 py-1 rounded-full shadow-lg shadow-brand-red/30">
+                  {activeSvc.category}
+                </span>
+
+                {/* Big Showcase Title */}
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-extrabold text-white leading-tight">
+                  Premium <span className="cmyk-rainbow-text">{activeSvc.name}</span> Solutions
+                </h2>
+
+                {/* Service Description */}
+                <p className="text-sm md:text-base text-brand-grey/85 leading-relaxed max-w-2xl font-sans">
+                  {activeSvc.description}
+                </p>
+
+                {/* Benefits Checkbox List */}
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">
+                  {(activeSvc.benefits && activeSvc.benefits.length > 0
+                    ? activeSvc.benefits
+                    : ["Premium Quality Materials", "Express Design Mockups", "Experienced Local Press Craftsmanship"]
+                  ).slice(0, 3).map((benefit, idx) => (
+                    <span key={idx} className="flex items-center space-x-2 text-xs font-semibold text-brand-cream/90">
+                      <HiCheckCircle className="text-brand-red shrink-0" size={16} />
+                      <span>{benefit}</span>
+                    </span>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <Link
+                    to="/contact"
+                    className="bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full shadow-xl shadow-brand-red/25 hover:shadow-brand-red/35 transition-all duration-200"
+                  >
+                    Get Free Quote
+                  </Link>
+                  <Link
+                    to="/contact"
+                    state={{ serviceName: activeSvc.name }}
+                    className="bg-white/10 hover:bg-white/20 text-white font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full border border-white/10 backdrop-blur-md shadow-sm transition-all duration-200"
+                  >
+                    Inquire About This
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Bottom Thumbnails Track & Navigation Controls */}
+          <div className="relative z-20 flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10 w-full mt-auto">
+            {/* Horizontal Scrollable Thumbnails List */}
+            <div className="flex items-center space-x-3 overflow-x-auto no-scrollbar py-1 max-w-full md:max-w-[75%] lg:max-w-[80%] shrink-0">
+              {services.map((s, idx) => (
+                <button
+                  key={s.id}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`relative flex items-center space-x-3 p-2 rounded-2xl border transition-all duration-300 shrink-0 text-left cursor-pointer group ${
+                    currentSlide === idx
+                      ? 'bg-white/15 border-brand-red shadow-lg scale-102 ring-1 ring-brand-red/20'
+                      : 'bg-brand-charcoal/40 border-white/5 hover:bg-white/5 hover:border-white/10'
+                  }`}
+                >
+                  <img
+                    src={s.image_url.startsWith('/') ? `${API_STATIC_BASE}${s.image_url}` : s.image_url}
+                    alt={s.name}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=100&auto=format&fit=crop";
+                    }}
+                    className="w-10 h-10 object-cover rounded-xl border border-white/10 group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="pr-2">
+                    <span className="block text-[10px] font-sans font-bold text-brand-grey/50 uppercase tracking-wide">
+                      {s.category}
+                    </span>
+                    <span className="block text-[11px] font-poppins font-bold text-white max-w-[130px] truncate">
+                      {s.name}
+                    </span>
+                  </div>
+                </button>
+              ))}
             </div>
 
-            {/* Floating Stats Stack Overlay */}
-            <div className="absolute bottom-6 right-6 z-20 bg-brand-charcoal/70 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10 shadow-lg pointer-events-none hidden lg:block text-left text-white max-w-[180px]">
-              <span className="text-[9px] font-poppins font-black text-brand-red uppercase tracking-widest block mb-1">Print Volume</span>
-              <span className="text-xs font-poppins font-bold text-white block">10,000,000+ Prints</span>
+            {/* Pagination Controls */}
+            <div className="flex items-center space-x-4 shrink-0 mt-2 md:mt-0">
+              <span className="text-xs font-mono text-brand-grey/50">
+                {String(currentSlide + 1).padStart(2, '0')} / {String(services.length || 3).padStart(2, '0')}
+              </span>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={handlePrevHero}
+                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-brand-red hover:text-white border border-white/10 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                  aria-label="Previous service"
+                >
+                  <HiChevronLeft size={20} />
+                </button>
+                <button
+                  onClick={handleNextHero}
+                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-brand-red hover:text-white border border-white/10 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                  aria-label="Next service"
+                >
+                  <HiChevronRight size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
