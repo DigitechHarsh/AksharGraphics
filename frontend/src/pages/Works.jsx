@@ -73,7 +73,7 @@ export default function Works() {
   const getDefaultPortfolio = () => [
     {
       id: 1,
-      category: "Wedding Cards",
+      category: "Premium Wedding Cards",
       title: "Royal Crimson Foil Card",
       description: "Exquisite wedding card with heavy gold embossing and crimson velvet finish for NRI family in New Jersey.",
       image_url: "/assets/portfolio_wedding.jpg",
@@ -81,7 +81,7 @@ export default function Works() {
     },
     {
       id: 2,
-      category: "Business Branding",
+      category: "Creative Logo Design",
       title: "Premium Corporate Stationery",
       description: "Custom embossed letterheads, gold-trimmed cards, and corporate envelopes.",
       image_url: "/assets/portfolio_branding.jpg",
@@ -89,7 +89,7 @@ export default function Works() {
     },
     {
       id: 3,
-      category: "Brochures",
+      category: "High-Quality Flyers & Banners",
       title: "Trifold Real Estate Catalog",
       description: "High-gloss marketing trifold brochure for Surat commercial real estate project.",
       image_url: "/assets/portfolio_brochure.jpg",
@@ -97,7 +97,7 @@ export default function Works() {
     },
     {
       id: 4,
-      category: "Creative Branding",
+      category: "Creative Logo Design",
       title: "Vivid London Cafe Logo",
       description: "Brand identity design, menus, signage guidelines for a cafe based in London, UK.",
       image_url: "/assets/service_logo.jpg",
@@ -105,7 +105,7 @@ export default function Works() {
     },
     {
       id: 5,
-      category: "Corporate Catalog",
+      category: "High-Quality Flyers & Banners",
       title: "Heavy Duty Equipment Catalog",
       description: "Standard industrial parts booklet with matte coating and custom indexing.",
       image_url: "/assets/service_printing.jpg",
@@ -113,7 +113,7 @@ export default function Works() {
     },
     {
       id: 6,
-      category: "Wedding Stationery",
+      category: "Premium Wedding Cards",
       title: "Metallic Gold Laser Cut Set",
       description: "Intricate laser cut cards and custom wax seal stamps for a client in Sydney, Australia.",
       image_url: "/assets/service_wedding.jpg",

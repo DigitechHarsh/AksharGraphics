@@ -97,7 +97,7 @@ function initJsonDb() {
       portfolio: [
         {
           id: 1,
-          category: "Wedding Cards",
+          category: "Premium Wedding Cards",
           title: "Royal Crimson Foil Card",
           description: "Exquisite wedding card with heavy gold embossing and crimson velvet finish.",
           image_url: "/assets/portfolio_wedding.jpg",
@@ -106,7 +106,7 @@ function initJsonDb() {
         },
         {
           id: 2,
-          category: "Business Branding",
+          category: "Creative Logo Design",
           title: "Premium Corporate Stationery",
           description: "Letterhead, envelope, and card designs for corporate clients.",
           image_url: "/assets/portfolio_branding.jpg",
@@ -115,7 +115,7 @@ function initJsonDb() {
         },
         {
           id: 3,
-          category: "Brochures",
+          category: "High-Quality Flyers & Banners",
           title: "Trifold Real Estate Catalog",
           description: "High-gloss marketing trifold brochure highlighting luxury villas.",
           image_url: "/assets/portfolio_brochure.jpg",
@@ -242,9 +242,9 @@ if (mysql && process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME) 
         const [portfolioCountRows] = await pool.query('SELECT COUNT(*) as count FROM portfolio');
         if (portfolioCountRows[0].count === 0) {
           const defaultPortfolio = [
-            ["Wedding Cards", "Royal Crimson Foil Card", "Exquisite wedding card with heavy gold embossing and crimson velvet finish.", "/assets/portfolio_wedding.jpg", 1],
-            ["Business Branding", "Premium Corporate Stationery", "Letterhead, envelope, and card designs for corporate clients.", "/assets/portfolio_branding.jpg", 0],
-            ["Brochures", "Trifold Real Estate Catalog", "High-gloss marketing trifold brochure highlighting luxury villas.", "/assets/portfolio_brochure.jpg", 0]
+            ["Premium Wedding Cards", "Royal Crimson Foil Card", "Exquisite wedding card with heavy gold embossing and crimson velvet finish.", "/assets/portfolio_wedding.jpg", 1],
+            ["Creative Logo Design", "Premium Corporate Stationery", "Letterhead, envelope, and card designs for corporate clients.", "/assets/portfolio_branding.jpg", 0],
+            ["High-Quality Flyers & Banners", "Trifold Real Estate Catalog", "High-gloss marketing trifold brochure highlighting luxury villas.", "/assets/portfolio_brochure.jpg", 0]
           ];
           for (const p of defaultPortfolio) {
             await pool.query('INSERT INTO portfolio (category, title, description, image_url, is_international) VALUES (?, ?, ?, ?, ?)', p);

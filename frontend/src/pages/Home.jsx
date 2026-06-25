@@ -76,16 +76,16 @@ export default function Home() {
           setPortfolioItems(res.data);
         } else {
           setPortfolioItems([
-            { id: 1, category: "Wedding Cards", title: "Royal Crimson Foil Card", image_url: "/assets/portfolio_wedding.jpg" },
-            { id: 2, category: "Business Branding", title: "Premium Corporate Stationery", image_url: "/assets/portfolio_branding.jpg" },
-            { id: 3, category: "Brochures", title: "Trifold Real Estate Catalog", image_url: "/assets/portfolio_brochure.jpg" }
+            { id: 1, category: "Premium Wedding Cards", title: "Royal Crimson Foil Card", image_url: "/assets/portfolio_wedding.jpg" },
+            { id: 2, category: "Creative Logo Design", title: "Premium Corporate Stationery", image_url: "/assets/portfolio_branding.jpg" },
+            { id: 3, category: "High-Quality Flyers & Banners", title: "Trifold Real Estate Catalog", image_url: "/assets/portfolio_brochure.jpg" }
           ]);
         }
       } catch (err) {
         setPortfolioItems([
-          { id: 1, category: "Wedding Cards", title: "Royal Crimson Foil Card", image_url: "/assets/portfolio_wedding.jpg" },
-          { id: 2, category: "Business Branding", title: "Premium Corporate Stationery", image_url: "/assets/portfolio_branding.jpg" },
-          { id: 3, category: "Brochures", title: "Trifold Real Estate Catalog", image_url: "/assets/portfolio_brochure.jpg" }
+          { id: 1, category: "Premium Wedding Cards", title: "Royal Crimson Foil Card", image_url: "/assets/portfolio_wedding.jpg" },
+          { id: 2, category: "Creative Logo Design", title: "Premium Corporate Stationery", image_url: "/assets/portfolio_branding.jpg" },
+          { id: 3, category: "High-Quality Flyers & Banners", title: "Trifold Real Estate Catalog", image_url: "/assets/portfolio_brochure.jpg" }
         ]);
       }
     };
@@ -151,8 +151,8 @@ export default function Home() {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  // Portfolio categories
-  const categories = ['All', 'Wedding Cards', 'Business Branding', 'Brochures', 'Posters', 'Corporate Printing', 'Digital Designs'];
+  // Portfolio categories dynamic based on services
+  const categories = ['All', ...services.map(s => s.name)];
   
   const filteredPortfolio = activeCategory === 'All' 
     ? portfolioItems 

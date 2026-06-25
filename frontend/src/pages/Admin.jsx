@@ -42,7 +42,7 @@ export default function Admin() {
   // Form states for items
   const [heroForm, setHeroForm] = useState({ title: '', subtitle: '', cta_text: 'Get Quote', cta_link: '/contact', order: 0, image_url: '' });
   const [serviceForm, setServiceForm] = useState({ category: 'Graphic Design', name: '', description: '', benefits: '', image_url: '' });
-  const [portfolioForm, setPortfolioForm] = useState({ category: 'Wedding Cards', title: '', description: '', image_url: '', is_international: 0 });
+  const [portfolioForm, setPortfolioForm] = useState({ category: '', title: '', description: '', image_url: '', is_international: 0 });
   const [testimonialForm, setTestimonialForm] = useState({ client_name: '', review: '', image_url: '' });
 
   // Axios Authorization Header config
@@ -94,8 +94,12 @@ export default function Admin() {
         const res = await axios.get(`${API_BASE}/services`);
         setServices(res.data);
       } else if (currentView === 'portfolio') {
-        const res = await axios.get(`${API_BASE}/portfolio`);
-        setPortfolio(res.data);
+        const [portRes, svcRes] = await Promise.all([
+          axios.get(`${API_BASE}/portfolio`),
+          axios.get(`${API_BASE}/services`)
+        ]);
+        setPortfolio(portRes.data);
+        setServices(svcRes.data);
       } else if (currentView === 'testimonials') {
         const res = await axios.get(`${API_BASE}/testimonials`);
         setTestimonials(res.data);
@@ -689,7 +693,7 @@ export default function Admin() {
                   </div>
                   <button
                     onClick={() => {
-                      setPortfolioForm({ category: 'Wedding Cards', title: '', description: '', image_url: '', is_international: 0 });
+                      setPortfolioForm({ category: '', title: '', description: '', image_url: '', is_international: 0 });
                       setCrudModal('add');
                     }}
                     className="bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-semibold text-xs tracking-wider uppercase px-4 py-2.5 rounded-lg flex items-center space-x-2"
@@ -753,14 +757,17 @@ export default function Admin() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-xs font-bold mb-1">Category</label>
-                            <select className="w-full px-3 py-2 border rounded" value={portfolioForm.category} onChange={e => setPortfolioForm({...portfolioForm, category: e.target.value})}>
-                              <option value="Wedding Cards">Wedding Cards</option>
-                              <option value="Business Branding">Business Branding</option>
-                              <option value="Brochures">Brochures</option>
-                              <option value="Posters">Posters</option>
-                              <option value="Corporate Printing">Corporate Printing</option>
-                              <option value="Digital Designs">Digital Designs</option>
+                            <label className="block text-xs font-bold mb-1">Service</label>
+                            <select 
+                              className="w-full px-3 py-2 border rounded" 
+                              value={portfolioForm.category} 
+                              onChange={e => setPortfolioForm({...portfolioForm, category: e.target.value})}
+                              required
+                            >
+                              <option value="" disabled>Select Service</option>
+                              {services.map(svc => (
+                                <option key={svc.id} value={svc.name}>{svc.name}</option>
+                              ))}
                             </select>
                           </div>
                           <div>
