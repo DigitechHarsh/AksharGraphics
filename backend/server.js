@@ -99,6 +99,35 @@ app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/inquiries', require('./routes/inquiries'));
 app.use('/api/settings', require('./routes/settings'));
 
+// Temporary debug route to diagnose production upload paths
+app.get('/api/debug-uploads', (req, res) => {
+  try {
+    const siblingPublicHtml_resolved = path.join(__dirname, '..', 'public_html');
+    const siblingExists = fs.existsSync(siblingPublicHtml_resolved);
+    const parentDir = path.join(__dirname, '..');
+    const parentSiblingPublicHtml = path.join(parentDir, '..', 'public_html');
+    const parentSiblingExists = fs.existsSync(parentSiblingPublicHtml);
+    
+    let uploadsFiles = [];
+    if (fs.existsSync(uploadsDir)) {
+      uploadsFiles = fs.readdirSync(uploadsDir);
+    }
+    
+    res.json({
+      __dirname,
+      siblingPublicHtml: siblingPublicHtml_resolved,
+      siblingExists,
+      parentSiblingPublicHtml,
+      parentSiblingExists,
+      uploadsDir,
+      uploadsDirExists: fs.existsSync(uploadsDir),
+      uploadsFiles
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Base healthcheck route
 app.get('/health', (req, res) => {
   const db = require('./config/db');
