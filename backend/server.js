@@ -108,10 +108,31 @@ app.get('/api/debug-uploads', (req, res) => {
     const parentSiblingPublicHtml = path.join(parentDir, '..', 'public_html');
     const parentSiblingExists = fs.existsSync(parentSiblingPublicHtml);
     
-    let uploadsFiles = [];
-    if (fs.existsSync(uploadsDir)) {
-      uploadsFiles = fs.readdirSync(uploadsDir);
+    // Recursive search helper
+    function findImageFiles(dir, fileList = [], depth = 0) {
+      if (depth > 4) return fileList; // limit depth
+      try {
+        const files = fs.readdirSync(dir);
+        for (const file of files) {
+          const filePath = path.join(dir, file);
+          const stat = fs.statSync(filePath);
+          if (stat.isDirectory()) {
+            if (file !== 'node_modules' && file !== '.git' && file !== 'cache') {
+              findImageFiles(filePath, fileList, depth + 1);
+            }
+          } else if (file.includes('image-') || file.endsWith('.png') || file.endsWith('.jpg')) {
+            // Only list actual files that look like uploaded files
+            if (filePath.includes('uploads') || file.startsWith('image-')) {
+              fileList.push({ name: file, path: filePath });
+            }
+          }
+        }
+      } catch (e) {}
+      return fileList;
     }
+    
+    const rootSearchDir = '/home/u315909654/domains/akshargraphics.co.in';
+    const foundFiles = findImageFiles(rootSearchDir);
     
     res.json({
       __dirname,
@@ -121,7 +142,7 @@ app.get('/api/debug-uploads', (req, res) => {
       parentSiblingExists,
       uploadsDir,
       uploadsDirExists: fs.existsSync(uploadsDir),
-      uploadsFiles
+      foundFiles
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
