@@ -23,4 +23,14 @@ const getApiUrl = () => {
 };
 
 export const API_BASE_URL = getApiUrl();
-export const API_STATIC_BASE = API_BASE_URL.replace('/api', '');
+
+// In production on Hostinger, static asset requests for uploads must go through the /api route 
+// to ensure Hostinger's reverse proxy routes the requests to the Node backend instead of 404ing.
+export const API_STATIC_BASE = 
+  window.location.hostname === 'localhost' || 
+  window.location.hostname === '127.0.0.1' || 
+  window.location.hostname.startsWith('192.168.') || 
+  window.location.hostname.startsWith('10.') || 
+  window.location.hostname.startsWith('172.')
+    ? API_BASE_URL.replace('/api', '')
+    : '/api';

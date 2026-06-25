@@ -28,8 +28,9 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Serve uploaded files statically
+// Serve uploaded files statically (both paths to support local and proxy modes)
 app.use('/uploads', express.static(uploadsDir));
+app.use('/api/uploads', express.static(uploadsDir));
 
 // Serve a default placeholder assets folder if images aren't present
 const assetsDir = path.join(__dirname, 'assets');
