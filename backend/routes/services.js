@@ -41,13 +41,23 @@ router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
     return res.status(400).json({ message: 'Category, name, description, and image are required' });
   }
 
-  // Format benefits as JSON string
+  // Format benefits as JSON string (parse comma-separated list into JSON array if needed)
   let benefitsStr = '[]';
   if (benefits) {
-    try {
-      benefitsStr = typeof benefits === 'string' ? benefits : JSON.stringify(benefits);
-    } catch (e) {
-      benefitsStr = '[]';
+    if (typeof benefits === 'string') {
+      const trimmed = benefits.trim();
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        benefitsStr = trimmed;
+      } else {
+        const benefitsArray = trimmed.split(',').map(b => b.trim()).filter(Boolean);
+        benefitsStr = JSON.stringify(benefitsArray);
+      }
+    } else {
+      try {
+        benefitsStr = JSON.stringify(benefits);
+      } catch (e) {
+        benefitsStr = '[]';
+      }
     }
   }
 
@@ -90,12 +100,23 @@ router.put('/:id', authMiddleware, upload.single('image'), async (req, res) => {
     return res.status(400).json({ message: 'Category, name, description, and image_url are required' });
   }
 
+  // Format benefits as JSON string (parse comma-separated list into JSON array if needed)
   let benefitsStr = '[]';
   if (benefits) {
-    try {
-      benefitsStr = typeof benefits === 'string' ? benefits : JSON.stringify(benefits);
-    } catch (e) {
-      benefitsStr = '[]';
+    if (typeof benefits === 'string') {
+      const trimmed = benefits.trim();
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        benefitsStr = trimmed;
+      } else {
+        const benefitsArray = trimmed.split(',').map(b => b.trim()).filter(Boolean);
+        benefitsStr = JSON.stringify(benefitsArray);
+      }
+    } else {
+      try {
+        benefitsStr = JSON.stringify(benefits);
+      } catch (e) {
+        benefitsStr = '[]';
+      }
     }
   }
 
