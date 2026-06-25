@@ -57,7 +57,7 @@ export default function Loader() {
           <motion.div
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
-            transition={{ duration: 1.8, ease: 'easeInOut' }}
+            transition={{ duration: 1.0, ease: 'easeInOut' }}
             className="h-full bg-gradient-to-r from-brand-red via-yellow-500 via-emerald-500 to-blue-500"
           />
         </div>

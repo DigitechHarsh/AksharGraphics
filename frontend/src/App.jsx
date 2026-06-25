@@ -16,17 +16,29 @@ import Admin from './pages/Admin';
 import Works from './pages/Works';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Skip loading screen if the user has already visited in this session
+    try {
+      return !sessionStorage.getItem('has_loaded_session');
+    } catch (e) {
+      return true;
+    }
+  });
   const cursorRef = useRef(null);
   const location = useLocation();
 
   // Loader Timeout
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1800); // 1.8 seconds matches progress bar animation
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        try {
+          sessionStorage.setItem('has_loaded_session', 'true');
+        } catch (e) {}
+      }, 1000); // Snappier 1.0s initial loading duration
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   // Custom Cursor Tracker with lerped animation and event delegation
   useEffect(() => {
