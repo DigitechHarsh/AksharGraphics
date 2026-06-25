@@ -44,6 +44,7 @@ if (!fs.existsSync(assetsDir)) {
   fs.mkdirSync(assetsDir, { recursive: true });
 }
 app.use('/assets', express.static(assetsDir));
+app.use('/api/assets', express.static(assetsDir));
 
 // Mock assets seeding (create mock files for logo and slides if missing so UI works instantly)
 function seedPlaceholderAssets() {
