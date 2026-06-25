@@ -73,68 +73,39 @@ body {
   background: #D11414;
 }
 
-/* Custom Cursor Dot (Instant Follow) */
-.custom-cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(135deg, #D11414, #EAB308, #10B981, #3B82F6, #8B5CF6);
-  background-size: 200% 200%;
-  animation: rainbow-shift 3s linear infinite;
+/* Custom Cursor (Single Aesthetic Pointer) */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D11414; /* Brand red border */
+  background-color: rgba(209, 20, 20, 0.05); /* Subtle red fill */
   border-radius: 50%;
   position: fixed;
   left: 0;
   top: 0;
-  margin-left: -4px;
-  margin-top: -4px;
+  margin-left: -10px;
+  margin-top: -10px;
   pointer-events: none;
   z-index: 9999;
-  box-shadow: 0 0 10px rgba(209, 20, 20, 0.4);
   will-change: transform;
-  transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1), height 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Custom Cursor Ring (Smooth Lag/Trailing Follow) */
-.custom-cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(209, 20, 20, 0.3);
-  border-radius: 50%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  margin-left: -18px;
-  margin-top: -18px;
-  pointer-events: none;
-  z-index: 9998;
-  will-change: transform;
-  /* Smooth trailing effect on transform, with expansion transition */
+  /* Smooth trailing lag on transform and transitions for scale changes */
   transition: 
-    transform 0.08s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.06s cubic-bezier(0.25, 1, 0.5, 1),
     width 0.25s cubic-bezier(0.25, 1, 0.5, 1),
     height 0.25s cubic-bezier(0.25, 1, 0.5, 1),
     border-color 0.25s cubic-bezier(0.25, 1, 0.5, 1),
     background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Hover States (controlled directly by class additions/removals in JS) */
-.custom-cursor-dot.custom-cursor-hover {
-  width: 4px;
-  height: 4px;
-  margin-left: -2px;
-  margin-top: -2px;
-  background: #FFF5DD; /* Cream inside hovered ring */
-  box-shadow: none;
-}
-
-.custom-cursor-ring.custom-cursor-ring-hover {
-  width: 52px;
-  height: 52px;
-  margin-left: -26px;
-  margin-top: -26px;
+/* Hover/Surfing State (when mouse is over clickable items) */
+.custom-cursor.custom-cursor-hover {
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
   border-color: rgba(209, 20, 20, 0.85);
-  border-width: 2px;
-  background-color: rgba(209, 20, 20, 0.08); /* Soft glow background inside ring */
-  box-shadow: 0 0 20px rgba(209, 20, 20, 0.15);
+  background-color: rgba(209, 20, 20, 0.12); /* Brighter glowing red background fill */
+  box-shadow: 0 0 20px rgba(209, 20, 20, 0.25); /* Glowing effect */
 }
 
 /* Floating Shapes Animations */
@@ -258,7 +229,6 @@ body {
   border-radius: 50%;
   filter: blur(65px);
   opacity: 0.28;
-  mix-blend-mode: multiply;
   pointer-events: none;
 }
 

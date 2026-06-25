@@ -45,7 +45,6 @@ function TiltCard({ children, className = '' }) {
 }
 
 export default function Home() {
-  const [heroSlides, setHeroSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [services, setServices] = useState([]);
   const [portfolioItems, setPortfolioItems] = useState([]);
@@ -53,35 +52,13 @@ export default function Home() {
   const [testimonials, setTestimonials] = useState([]);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Fetch Hero Slides
+  // Fetch site data on load
   useEffect(() => {
-    const fetchHero = async () => {
-      try {
-        const res = await axios.get(`${API_BASE_URL}/hero`);
-        if (res.data.length > 0) {
-          setHeroSlides(res.data);
-        } else {
-          // Preset Fallback
-          setHeroSlides([
-            { id: 1, title: 'Printing Services', subtitle: 'Flyer Design, Poster Design, Brochures, Banner Printing, Standees', image_url: '/assets/slide_printing.jpg', cta_text: 'Get Quote', cta_link: '/contact' },
-            { id: 2, title: 'Branding & Creative Design', subtitle: 'Logo Design, Letterheads, Business Stationery, Corporate Identity', image_url: '/assets/slide_branding.jpg', cta_text: 'Explore Services', cta_link: '/services' },
-            { id: 3, title: 'Premium Wedding Printing', subtitle: 'Wedding Cards, Personalized Invitations & Premium Stationery', image_url: '/assets/slide_wedding.jpg', cta_text: 'Inquire Now', cta_link: '/contact' }
-          ]);
-        }
-      } catch (err) {
-        setHeroSlides([
-          { id: 1, title: 'Printing Services', subtitle: 'Flyer Design, Poster Design, Brochures, Banner Printing, Standees', image_url: '/assets/slide_printing.jpg', cta_text: 'Get Quote', cta_link: '/contact' },
-          { id: 2, title: 'Branding & Creative Design', subtitle: 'Logo Design, Letterheads, Business Stationery, Corporate Identity', image_url: '/assets/slide_branding.jpg', cta_text: 'Explore Services', cta_link: '/services' },
-          { id: 3, title: 'Premium Wedding Printing', subtitle: 'Wedding Cards, Personalized Invitations & Premium Stationery', image_url: '/assets/slide_wedding.jpg', cta_text: 'Inquire Now', cta_link: '/contact' }
-        ]);
-      }
-    };
-    
-    // Fetch Services preview
+    // Fetch all Services for slider and preview
     const fetchServices = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/services`);
-        setServices(res.data.slice(0, 3));
+        setServices(res.data);
       } catch (err) {
         setServices([
           { id: 1, category: "Graphic Design", name: "Creative Logo Design", description: "Elevate your brand with custom logo designs crafted by our experienced branding artists.", image_url: "/assets/service_logo.jpg" },
@@ -133,7 +110,6 @@ export default function Home() {
       }
     };
 
-    fetchHero();
     fetchServices();
     fetchPortfolio();
     fetchTestimonials();
@@ -141,19 +117,21 @@ export default function Home() {
 
   // Slider Autoplay
   useEffect(() => {
-    if (heroSlides.length === 0) return;
+    if (services.length === 0) return;
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      setCurrentSlide((prev) => (prev + 1) % services.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [heroSlides]);
+  }, [services]);
 
   const handleNextHero = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    if (services.length === 0) return;
+    setCurrentSlide((prev) => (prev + 1) % services.length);
   };
 
   const handlePrevHero = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    if (services.length === 0) return;
+    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
   };
 
   const handleNextTestimonial = () => {
@@ -282,10 +260,10 @@ export default function Home() {
         <div className="md:w-1/2 w-full h-[350px] md:h-[500px] relative rounded-[2rem] shadow-2xl z-10 rainbow-glow-wrapper">
           <div className="w-full h-full relative rounded-[1.9rem] overflow-hidden bg-white glass-card">
             <AnimatePresence mode="wait">
-              {heroSlides.map((slide, idx) => (
+              {services.map((svc, idx) => (
                 idx === currentSlide && (
                   <motion.div
-                    key={slide.id}
+                    key={svc.id}
                     initial={{ opacity: 0, scale: 1.05 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
@@ -297,8 +275,8 @@ export default function Home() {
 
                     {/* Fallback color block or image */}
                     <img
-                      src={slide.image_url.startsWith('/') ? `${API_STATIC_BASE}${slide.image_url}` : slide.image_url}
-                      alt={slide.title}
+                      src={svc.image_url.startsWith('/') ? `${API_STATIC_BASE}${svc.image_url}` : svc.image_url}
+                      alt={svc.name}
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = "https://images.unsplash.com/photo-1561070791-26c113006238?q=80&w=600&auto=format&fit=crop"; // Unsplash creative mockup fallback
@@ -314,7 +292,7 @@ export default function Home() {
                         transition={{ delay: 0.3, duration: 0.5 }}
                         className="bg-brand-red px-4 py-1.5 rounded-full text-xs font-poppins font-semibold uppercase tracking-widest"
                       >
-                        Featured Work
+                        {svc.category}
                       </motion.span>
                       <motion.h3
                         initial={{ y: 20, opacity: 0 }}
@@ -322,15 +300,15 @@ export default function Home() {
                         transition={{ delay: 0.4, duration: 0.5 }}
                         className="text-2xl md:text-3xl font-poppins font-extrabold"
                       >
-                        {slide.title}
+                        {svc.name}
                       </motion.h3>
                       <motion.p
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.5, duration: 0.5 }}
-                        className="text-sm text-brand-grey/80 leading-relaxed font-sans"
+                        className="text-sm text-brand-grey/80 leading-relaxed font-sans line-clamp-2"
                       >
-                        {slide.subtitle}
+                        {svc.description}
                       </motion.p>
                       <motion.div
                         initial={{ y: 20, opacity: 0 }}
@@ -339,10 +317,10 @@ export default function Home() {
                         className="pt-2"
                       >
                         <Link
-                          to={slide.cta_link}
+                          to="/contact"
                           className="inline-flex items-center space-x-2 text-brand-cream hover:text-brand-red font-poppins font-bold text-xs uppercase tracking-wider transition-colors duration-200"
                         >
-                          <span>{slide.cta_text}</span>
+                          <span>Inquire Now</span>
                           <HiArrowRight size={14} />
                         </Link>
                       </motion.div>
@@ -365,7 +343,7 @@ export default function Home() {
             </div>
 
             {/* Navigation Controls */}
-            {heroSlides.length > 1 && (
+            {services.length > 1 && (
               <>
                 <button
                   onClick={handlePrevHero}
@@ -382,7 +360,7 @@ export default function Home() {
 
                 {/* Dot Indicators */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-                  {heroSlides.map((_, idx) => (
+                  {services.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentSlide(idx)}
@@ -542,7 +520,7 @@ export default function Home() {
 
         {/* Services Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((svc, idx) => (
+          {services.slice(0, 3).map((svc, idx) => (
             <TiltCard key={svc.id} className="h-full rainbow-glow-wrapper">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}

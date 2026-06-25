@@ -17,8 +17,7 @@ import Works from './pages/Works';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
+  const cursorRef = useRef(null);
   const location = useLocation();
 
   // Loader Timeout
@@ -32,13 +31,11 @@ export default function App() {
   // Custom Cursor Tracker
   useEffect(() => {
     const updateMousePosition = (e) => {
-      const dot = dotRef.current;
-      const ring = ringRef.current;
-      if (!dot || !ring) return;
+      const cursor = cursorRef.current;
+      if (!cursor) return;
 
       // Position cursor using GPU-accelerated transform translate3d
-      dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      ring.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
 
       // Check if mouse is hovering over interactive elements
       const target = e.target;
@@ -52,11 +49,9 @@ export default function App() {
         target.classList.contains('cursor-pointer');
 
       if (isClickable) {
-        dot.classList.add('custom-cursor-hover');
-        ring.classList.add('custom-cursor-ring-hover');
+        cursor.classList.add('custom-cursor-hover');
       } else {
-        dot.classList.remove('custom-cursor-hover');
-        ring.classList.remove('custom-cursor-ring-hover');
+        cursor.classList.remove('custom-cursor-hover');
       }
     };
 
@@ -76,15 +71,10 @@ export default function App() {
 
   return (
     <>
-      {/* Custom Cursor Dot */}
+      {/* Custom Cursor */}
       <div
-        ref={dotRef}
-        className="hidden md:block custom-cursor-dot"
-      />
-      {/* Custom Cursor Ring */}
-      <div
-        ref={ringRef}
-        className="hidden md:block custom-cursor-ring"
+        ref={cursorRef}
+        className="hidden md:block custom-cursor"
       />
 
       {/* Loading Transition Screen */}
@@ -100,9 +90,6 @@ export default function App() {
               <div className="rgb-orb rgb-orb-1" />
               <div className="rgb-orb rgb-orb-2" />
               <div className="rgb-orb rgb-orb-3" />
-              <div className="rgb-orb rgb-orb-4" />
-              <div className="rgb-orb rgb-orb-5" />
-              <div className="rgb-orb rgb-orb-6" />
             </div>
           )}
 
