@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
-import { HiLockClosed, HiMail, HiOutlineClipboardList, HiPhotograph, HiSpeakerphone, HiCog, HiLogout, HiPlus, HiTrash, HiCheck, HiAcademicCap, HiViewGrid, HiBriefcase, HiMenu, HiChevronRight } from 'react-icons/hi';
+import { HiLockClosed, HiMail, HiOutlineClipboardList, HiPhotograph, HiSpeakerphone, HiCog, HiLogout, HiPlus, HiViewGrid, HiBriefcase, HiMenu } from 'react-icons/hi';
 import SEO from '../components/SEO';
 
 import { API_BASE_URL as API_BASE } from '../config';
 
 export default function Admin() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
-  const [user, setUser] = useState(null);
+  const [_user, setUser] = useState(null);
   
   // Login Form
   const [loginEmail, setLoginEmail] = useState('');
@@ -46,31 +46,18 @@ export default function Admin() {
   const [testimonialForm, setTestimonialForm] = useState({ client_name: '', review: '', image_url: '' });
 
   // Axios Authorization Header config
-  const axiosConfig = {
+  const axiosConfig = useMemo(() => ({
     headers: { Authorization: `Bearer ${token}` }
-  };
+  }), [token]);
 
-  // Verify token on load
-  useEffect(() => {
-    if (token) {
-      axios.get(`${API_BASE}/auth/verify`, axiosConfig)
-        .then(res => {
-          setUser(res.data.user);
-        })
-        .catch(err => {
-          console.warn('Session expired or invalid. Logging out.');
-          handleLogout();
-        });
-    }
-  }, [token]);
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('token');
+    setToken('');
+    setUser(null);
+    setCurrentView('dashboard');
+  }, []);
 
-  // Load view-specific data
-  useEffect(() => {
-    if (!token) return;
-    fetchData();
-  }, [token, currentView]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setDataLoading(true);
     try {
       if (currentView === 'dashboard') {
@@ -112,7 +99,27 @@ export default function Admin() {
     } finally {
       setDataLoading(false);
     }
-  };
+  }, [currentView, axiosConfig]);
+
+  // Verify token on load
+  useEffect(() => {
+    if (token) {
+      axios.get(`${API_BASE}/auth/verify`, axiosConfig)
+        .then(res => {
+          setUser(res.data.user);
+        })
+        .catch(() => {
+          console.warn('Session expired or invalid. Logging out.');
+          handleLogout();
+        });
+    }
+  }, [token, axiosConfig, handleLogout]);
+
+  // Load view-specific data
+  useEffect(() => {
+    if (!token) return;
+    fetchData();
+  }, [token, fetchData]);
 
   // Auth Functions
   const handleLogin = async (e) => {
@@ -136,19 +143,12 @@ export default function Admin() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setToken('');
-    setUser(null);
-    setCurrentView('dashboard');
-  };
-
   // Inquiry actions
   const handleInquiryStatusChange = async (id, status) => {
     try {
       await axios.put(`${API_BASE}/inquiries/${id}`, { status }, axiosConfig);
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to update inquiry status');
     }
   };
@@ -213,7 +213,7 @@ export default function Admin() {
     try {
       await axios.delete(`${API_BASE}/${type}/${id}`, axiosConfig);
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Error deleting item');
     }
   };
@@ -242,7 +242,7 @@ export default function Admin() {
       alert('Settings updated successfully!');
       setUploadFile(null);
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to update website settings');
     }
   };

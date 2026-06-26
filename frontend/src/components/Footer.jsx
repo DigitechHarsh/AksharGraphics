@@ -21,7 +21,7 @@ export default function Footer() {
         if (res.data) {
           setSettings(res.data);
         }
-      } catch (err) {
+      } catch {
         console.warn('Could not fetch settings for footer, using fallback.');
       }
     };

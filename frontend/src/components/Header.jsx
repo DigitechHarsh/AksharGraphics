@@ -32,7 +32,7 @@ export default function Header() {
         if (res.data && res.data.logo_url) {
           setLogoUrl(`${API_STATIC_BASE}${res.data.logo_url}`);
         }
-      } catch (err) {
+      } catch {
         // Fallback to local public path if api fails
         setLogoUrl('/assets/logo.png');
       }

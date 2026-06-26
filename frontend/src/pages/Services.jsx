@@ -66,7 +66,7 @@ export default function Services() {
         } else {
           setServices(getDefaultServices());
         }
-      } catch (err) {
+      } catch {
         setServices(getDefaultServices());
       }
     };
@@ -311,7 +311,7 @@ export default function Services() {
                     try {
                       parsedBenefits = typeof activeService.benefits === 'string' ? JSON.parse(activeService.benefits) : activeService.benefits;
                       if (!Array.isArray(parsedBenefits)) parsedBenefits = [];
-                    } catch (e) {
+                    } catch {
                       parsedBenefits = activeService.benefits || [];
                     }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiCheckCircle, HiArrowRight, HiX as CloseIcon, HiMail, HiOutlineGlobeAlt, HiOutlineFolderOpen } from 'react-icons/hi';
+import { HiCheckCircle, HiArrowRight, HiX as CloseIcon, HiOutlineGlobeAlt, HiOutlineFolderOpen } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
 import { API_BASE_URL, API_STATIC_BASE } from '../config';
@@ -63,7 +63,7 @@ export default function Works() {
       try {
         const res = await axios.get(`${API_BASE_URL}/portfolio`);
         setPortfolio(res.data);
-      } catch (err) {
+      } catch {
         setPortfolio(getDefaultPortfolio());
       }
     };

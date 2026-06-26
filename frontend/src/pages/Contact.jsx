@@ -37,7 +37,7 @@ export default function Contact() {
             'Educational Stationery'
           ]);
         }
-      } catch (err) {
+      } catch {
         setServicesList([
           'Logo Design & Branding',
           'Business Cards & Stationery',

@@ -20,7 +20,7 @@ export default function App() {
     // Skip loading screen if the user has already visited in this session
     try {
       return !sessionStorage.getItem('has_loaded_session');
-    } catch (e) {
+    } catch {
       return true;
     }
   });
@@ -34,7 +34,7 @@ export default function App() {
         setIsLoading(false);
         try {
           sessionStorage.setItem('has_loaded_session', 'true');
-        } catch (e) {}
+        } catch {}
       }, 1000); // Snappier 1.0s initial loading duration
       return () => clearTimeout(timer);
     }
@@ -71,19 +71,20 @@ export default function App() {
     // Bubble check on hover state changes to avoid heavy layout thrashing on every pixel move
     const handleMouseOver = (e) => {
       const target = e.target;
-      if (!target) return;
+      if (!target || target === window || target === document) return;
 
       const isClickable = 
         target.tagName === 'A' || 
         target.tagName === 'BUTTON' || 
         target.closest('a') || 
         target.closest('button') || 
-        target.classList.contains('cursor-pointer');
+        (target.classList && target.classList.contains('cursor-pointer'));
 
+      const hasClass = cursor.classList.contains('custom-cursor-hover');
       if (isClickable) {
-        cursor.classList.add('custom-cursor-hover');
+        if (!hasClass) cursor.classList.add('custom-cursor-hover');
       } else {
-        cursor.classList.remove('custom-cursor-hover');
+        if (hasClass) cursor.classList.remove('custom-cursor-hover');
       }
     };
 

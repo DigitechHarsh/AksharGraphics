@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiArrowRight, HiChevronLeft, HiChevronRight, HiCheckCircle, HiCalendar, HiLightBulb, HiSparkles, HiShieldCheck, HiCurrencyRupee } from 'react-icons/hi';
+import { HiArrowRight, HiChevronLeft, HiChevronRight, HiCheckCircle, HiCalendar, HiSparkles, HiShieldCheck } from 'react-icons/hi';
 import axios from 'axios';
 import SEO from '../components/SEO';
 import { API_BASE_URL, API_STATIC_BASE } from '../config';
@@ -59,7 +59,7 @@ export default function Home() {
       try {
         const res = await axios.get(`${API_BASE_URL}/services`);
         setServices(res.data);
-      } catch (err) {
+      } catch {
         setServices([
           { id: 1, category: "Graphic Design", name: "Creative Logo Design", description: "Elevate your brand with custom logo designs crafted by our experienced branding artists.", image_url: "/assets/service_logo.jpg" },
           { id: 2, category: "Printing Solutions", name: "High-Quality Flyers & Banners", description: "Print marketing assets that demand attention. Crisp colors, premium cardstocks.", image_url: "/assets/service_printing.jpg" },
@@ -81,7 +81,7 @@ export default function Home() {
             { id: 3, category: "High-Quality Flyers & Banners", title: "Trifold Real Estate Catalog", image_url: "/assets/portfolio_brochure.jpg" }
           ]);
         }
-      } catch (err) {
+      } catch {
         setPortfolioItems([
           { id: 1, category: "Premium Wedding Cards", title: "Royal Crimson Foil Card", image_url: "/assets/portfolio_wedding.jpg" },
           { id: 2, category: "Creative Logo Design", title: "Premium Corporate Stationery", image_url: "/assets/portfolio_branding.jpg" },
@@ -102,7 +102,7 @@ export default function Home() {
             { id: 2, client_name: "Sneha Mehta", review: "We ordered our wedding cards from Chandreshbhai. Every card was beautifully crafted. Our guests loved them. Highly recommended!", image_url: "/assets/client2.jpg" }
           ]);
         }
-      } catch (err) {
+      } catch {
         setTestimonials([
           { id: 1, client_name: "Rajesh Patel", review: "Akshar Graphics has been printing our business cards and banners for over 5 years. Their quality is top-notch and delivery is always on time!", image_url: "/assets/client1.jpg" },
           { id: 2, client_name: "Sneha Mehta", review: "We ordered our wedding cards from Chandreshbhai. Every card was beautifully crafted. Our guests loved them. Highly recommended!", image_url: "/assets/client2.jpg" }
@@ -689,7 +689,7 @@ export default function Home() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <AnimatePresence mode="popLayout">
-              {filteredPortfolio.slice(0, 6).map((item, idx) => (
+              {filteredPortfolio.slice(0, 6).map((item) => (
                 <motion.div
                   key={item.id}
                   layout
