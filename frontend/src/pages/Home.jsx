@@ -278,7 +278,7 @@ export default function Home() {
                 </span>
 
                 {/* Big Showcase Title */}
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-extrabold text-white leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-poppins font-extrabold text-white leading-tight">
                   Premium <span className="cmyk-rainbow-text">{activeSvc.name}</span> Solutions
                 </h2>
 
@@ -304,14 +304,14 @@ export default function Home() {
                 <div className="flex flex-wrap gap-4 pt-4">
                   <Link
                     to="/contact"
-                    className="bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full shadow-xl shadow-brand-red/25 hover:shadow-brand-red/35 transition-all duration-200"
+                    className="w-full sm:w-auto text-center bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full shadow-xl shadow-brand-red/25 hover:shadow-brand-red/35 transition-all duration-200"
                   >
                     Get Free Quote
                   </Link>
                   <Link
                     to="/contact"
                     state={{ serviceName: activeSvc.name }}
-                    className="bg-white/10 hover:bg-white/20 text-white font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full border border-white/10 backdrop-blur-md shadow-sm transition-all duration-200"
+                    className="w-full sm:w-auto text-center bg-white/10 hover:bg-white/20 text-white font-poppins font-bold text-xs tracking-wider uppercase px-8 py-4 rounded-full border border-white/10 backdrop-blur-md shadow-sm transition-all duration-200"
                   >
                     Inquire About This
                   </Link>
