@@ -128,5 +128,5 @@ app.listen(PORT, () => {
   console.log(`Akshar Graphics Server running on port ${PORT}`);
   console.log(`Healthcheck endpoint: http://localhost:${PORT}/health`);
 });
-// Trigger nodemon restart for env update
+// Trigger nodemon restart for active Cloudinary
 

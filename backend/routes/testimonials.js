@@ -21,7 +21,7 @@ router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
   let imageUrl = '';
 
   if (req.file) {
-    imageUrl = `/uploads/${req.file.filename}`;
+    imageUrl = upload.getFileUrl(req.file);
   } else if (req.body.image_url) {
     imageUrl = req.body.image_url;
   }
@@ -49,7 +49,7 @@ router.put('/:id', authMiddleware, upload.single('image'), async (req, res) => {
   let imageUrl = req.body.image_url;
 
   if (req.file) {
-    imageUrl = `/uploads/${req.file.filename}`;
+    imageUrl = upload.getFileUrl(req.file);
   }
 
   if (!client_name || !review) {

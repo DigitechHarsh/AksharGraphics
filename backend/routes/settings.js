@@ -59,7 +59,7 @@ router.put('/', authMiddleware, upload.single('logo'), async (req, res) => {
   let logoUrl = req.body.logo_url;
 
   if (req.file) {
-    logoUrl = `/uploads/${req.file.filename}`;
+    logoUrl = upload.getFileUrl(req.file);
   }
 
   // Format objects as strings
