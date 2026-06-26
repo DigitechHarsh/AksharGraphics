@@ -43,12 +43,12 @@ export default function Footer() {
                 const fallback = document.getElementById('footer-brand-text-fallback');
                 if (fallback) fallback.style.display = 'flex';
               }}
-              className="h-9 w-auto object-contain"
+              className="h-12 md:h-16 w-auto object-contain"
             />
-            <div id="footer-brand-text-fallback" className="hidden w-9 h-9 rounded-lg bg-brand-red items-center justify-center">
-              <span className="font-poppins font-extrabold text-base text-white">AG</span>
+            <div id="footer-brand-text-fallback" className="hidden w-12 h-12 md:w-16 md:h-16 rounded-lg bg-brand-red items-center justify-center">
+              <span className="font-poppins font-extrabold text-lg md:text-xl text-white">AG</span>
             </div>
-            <span className="font-poppins font-extrabold text-lg tracking-wider text-white">
+            <span className="font-poppins font-extrabold text-2xl md:text-3xl tracking-wider text-white">
               AKSHAR <span className="text-brand-red">GRAPHICS</span>
             </span>
           </Link>

@@ -64,7 +64,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="h-10 flex items-center justify-center">
+          <div className="h-12 md:h-16 flex items-center justify-center">
             <img
               src={logoUrl}
               alt="Akshar Graphics Logo"
@@ -73,13 +73,13 @@ export default function Header() {
                 const fallback = document.getElementById('brand-text-fallback');
                 if (fallback) fallback.style.display = 'flex';
               }}
-              className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              className="h-12 md:h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             />
-            <div id="brand-text-fallback" className="hidden w-10 h-10 rounded-lg bg-brand-red items-center justify-center shadow-md shadow-brand-red/20 group-hover:scale-105 transition-transform duration-200">
-              <span className="font-poppins font-extrabold text-lg text-brand-cream">AG</span>
+            <div id="brand-text-fallback" className="hidden w-12 h-12 md:w-16 md:h-16 rounded-lg bg-brand-red items-center justify-center shadow-md shadow-brand-red/20 group-hover:scale-105 transition-transform duration-200">
+              <span className="font-poppins font-extrabold text-lg md:text-xl text-brand-cream">AG</span>
             </div>
           </div>
-          <span className="font-poppins font-extrabold text-xl tracking-wider text-brand-charcoal">
+          <span className="font-poppins font-extrabold text-2xl md:text-3xl tracking-wider text-brand-charcoal">
             AKSHAR <span className="text-brand-red">GRAPHICS</span>
           </span>
         </Link>
