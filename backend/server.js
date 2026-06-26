@@ -26,9 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 // On Hostinger, Git auto-deploy resets the nodejs folder and wipes out untracked files.
 // Storing uploads in the sibling public_html folder keeps them persistent and safe from Git resets.
 const siblingPublicHtml = path.join(__dirname, '..', 'public_html');
-const uploadsDir = fs.existsSync(siblingPublicHtml)
-  ? path.join(siblingPublicHtml, 'uploads')
-  : path.join(__dirname, 'uploads');
+const uploadsDir = process.env.UPLOAD_DIR
+  ? path.resolve(process.env.UPLOAD_DIR)
+  : (fs.existsSync(siblingPublicHtml)
+    ? path.join(siblingPublicHtml, 'uploads')
+    : path.join(__dirname, 'uploads'));
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
@@ -126,3 +128,5 @@ app.listen(PORT, () => {
   console.log(`Akshar Graphics Server running on port ${PORT}`);
   console.log(`Healthcheck endpoint: http://localhost:${PORT}/health`);
 });
+// Trigger nodemon restart for env update
+

@@ -6,9 +6,11 @@ const backendDir = path.join(__dirname, '..');
 const parentDir = path.join(backendDir, '..');
 const siblingPublicHtml = path.join(parentDir, 'public_html');
 
-const uploadDir = fs.existsSync(siblingPublicHtml)
-  ? path.join(siblingPublicHtml, 'uploads')
-  : path.join(backendDir, 'uploads');
+const uploadDir = process.env.UPLOAD_DIR
+  ? path.resolve(process.env.UPLOAD_DIR)
+  : (fs.existsSync(siblingPublicHtml)
+    ? path.join(siblingPublicHtml, 'uploads')
+    : path.join(backendDir, 'uploads'));
 
 // Ensure directory exists
 if (!fs.existsSync(uploadDir)) {
