@@ -38,6 +38,7 @@ export default function Admin() {
   const [crudModal, setCrudModal] = useState(null); // 'add' or 'edit' or null
   const [activeItem, setActiveItem] = useState(null); // Item being edited/deleted
   const [uploadFile, setUploadFile] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   // Form states for items
   const [heroForm, setHeroForm] = useState({ title: '', subtitle: '', cta_text: 'Get Quote', cta_link: '/contact', order: 0, image_url: '' });
@@ -156,6 +157,7 @@ export default function Admin() {
   // CRUD actions helper for image upload
   const handleFormSubmit = async (e, type) => {
     e.preventDefault();
+    setSubmitting(true);
     const formData = new FormData();
     let endpoint = `${API_BASE}/${type}`;
 
@@ -204,6 +206,8 @@ export default function Admin() {
       fetchData();
     } catch (err) {
       alert(err.response?.data?.message || 'Error processing request');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -221,6 +225,7 @@ export default function Admin() {
   // Settings Save
   const handleSettingsSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     const formData = new FormData();
     if (uploadFile) {
       formData.append('logo', uploadFile);
@@ -244,6 +249,8 @@ export default function Admin() {
       fetchData();
     } catch {
       alert('Failed to update website settings');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -568,7 +575,9 @@ export default function Admin() {
                         </div>
                         <div className="flex justify-end space-x-2 pt-4">
                           <button type="button" className="px-4 py-2 border rounded text-xs" onClick={() => setCrudModal(null)}>Cancel</button>
-                          <button type="submit" className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded">Save Slide</button>
+                          <button type="submit" disabled={submitting} className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded disabled:opacity-50">
+                            {submitting ? 'Saving...' : 'Save Slide'}
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -674,7 +683,9 @@ export default function Admin() {
                         </div>
                         <div className="flex justify-end space-x-2 pt-4">
                           <button type="button" className="px-4 py-2 border rounded text-xs" onClick={() => setCrudModal(null)}>Cancel</button>
-                          <button type="submit" className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded">Save Service</button>
+                          <button type="submit" disabled={submitting} className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded disabled:opacity-50">
+                            {submitting ? 'Saving...' : 'Save Service'}
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -793,7 +804,9 @@ export default function Admin() {
                         </div>
                         <div className="flex justify-end space-x-2 pt-4">
                           <button type="button" className="px-4 py-2 border rounded text-xs" onClick={() => setCrudModal(null)}>Cancel</button>
-                          <button type="submit" className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded">Save Item</button>
+                          <button type="submit" disabled={submitting} className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded disabled:opacity-50">
+                            {submitting ? 'Saving...' : 'Save Item'}
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -868,7 +881,9 @@ export default function Admin() {
                         </div>
                         <div className="flex justify-end space-x-2 pt-4">
                           <button type="button" className="px-4 py-2 border rounded text-xs" onClick={() => setCrudModal(null)}>Cancel</button>
-                          <button type="submit" className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded">Save Testimonial</button>
+                          <button type="submit" disabled={submitting} className="px-4 py-2 bg-brand-red text-white text-xs font-bold rounded disabled:opacity-50">
+                            {submitting ? 'Saving...' : 'Save Testimonial'}
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -1005,9 +1020,10 @@ export default function Admin() {
 
                   <button
                     type="submit"
-                    className="bg-brand-red hover:bg-brand-deepRed text-brand-cream font-poppins font-semibold text-xs tracking-wider uppercase px-8 py-3.5 rounded-xl shadow-lg shadow-brand-red/20 transition-all duration-200"
+                    disabled={submitting}
+                    className="bg-brand-red hover:bg-brand-deepRed disabled:bg-brand-red/50 text-brand-cream font-poppins font-semibold text-xs tracking-wider uppercase px-8 py-3.5 rounded-xl shadow-lg shadow-brand-red/20 transition-all duration-200"
                   >
-                    Save All Configurations
+                    {submitting ? 'Saving All Configurations...' : 'Save All Configurations'}
                   </button>
                 </form>
               </div>
